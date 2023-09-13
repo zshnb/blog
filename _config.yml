@@ -102,4 +102,11 @@ theme: xoxo
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: git
+  repo: git@github.com:zshnb/blog.git # https://bitbucket.org/JohnSmith/johnsmith.bitbucket.io
+
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
