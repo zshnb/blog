@@ -8,7 +8,7 @@ subtitle: ''
 description: zshnb的博客
 keywords:
 author: zheng sihua
-language: zh
+language: zh-CN
 timezone: 'Asia/Shanghai'
 
 # URL
@@ -97,7 +97,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: xoxo
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
@@ -110,3 +110,13 @@ search:
   field: post
   format: html
   limit: 10000
+
+symbols_count_time:
+  symbols: true
+  time: true
+  total_symbols: true
+  total_time: true
+  exclude_codeblock: false
+  awl: 4
+  wpm: 275
+  suffix: "mins."

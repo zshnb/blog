@@ -375,6 +375,13 @@ domexception@^4.0.0:
   dependencies:
     webidl-conversions "^7.0.0"
 
+domhandler@^3.0.0:
+  version "3.3.0"
+  resolved "https://registry.npmjs.org/domhandler/-/domhandler-3.3.0.tgz"
+  integrity sha512-J1C5rIANUbuYK+FuFL98650rihynUOEzRLxW+90bKZRWB6A1X1Tf82GxR1qAWLyfNPRvjqfip3Q5tdYlmAa9lA==
+  dependencies:
+    domelementtype "^2.0.1"
+
 domhandler@^4.2.0, domhandler@^4.2.2:
   version "4.3.1"
   resolved "https://registry.npmjs.org/domhandler/-/domhandler-4.3.1.tgz"
@@ -394,7 +401,7 @@ dompurify@^3.0.3:
   resolved "https://registry.npmjs.org/dompurify/-/dompurify-3.0.5.tgz"
   integrity sha512-F9e6wPGtY+8KNMRAVfxeCOHU0/NPWMSENNq4pQctuXRqqdEPW7q3CrLbR5Nse044WwacyjHGOMlvNsBe1y6z9A==
 
-domutils@^2.8.0:
+domutils@^2.0.0, domutils@^2.8.0:
   version "2.8.0"
   resolved "https://registry.npmjs.org/domutils/-/domutils-2.8.0.tgz"
   integrity sha512-w96Cjofp72M5IIhpjgobBimYEfoPjx1Vx0BSX9P30WBdZW2WIKU0T1Bd0kz2eNZ9ikjKgHbEyKx8BB6H1L3h3A==
@@ -751,10 +758,22 @@ hexo-server@^3.0.0:
     picocolors "^1.0.0"
     serve-static "^1.14.1"
 
+hexo-symbols-count-time@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.npmjs.org/hexo-symbols-count-time/-/hexo-symbols-count-time-0.7.1.tgz"
+  integrity sha512-Zw19uxRIT/3VCvMQytG6HfBJc/IvfFJYui8cg6vyFAtDxkPOoZ1UlsPjrBRXYAqO6VjLc/vRi+Jthj38pKNPlw==
+  dependencies:
+    hexo-util "1.9.0"
+
 hexo-theme-landscape@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/hexo-theme-landscape/-/hexo-theme-landscape-1.0.0.tgz"
   integrity sha512-bWQJWMqQI78wWiJPQZq5pJBH20TM442ShCaHGRetuEgMraxH0OKxB3NTupJzNEkzEk8DV2yrdizkXdKN6i501A==
+
+hexo-theme-next@^8.18.1:
+  version "8.18.1"
+  resolved "https://registry.npmjs.org/hexo-theme-next/-/hexo-theme-next-8.18.1.tgz"
+  integrity sha512-cfj4FKXJZjFmWQ5hX1yQHYCu+qzRce/hxw3403jCCnQHkfcTSoT0I7OJCWktCydJ2p43JSKiOpL5n6N4yRggZw==
 
 hexo-util@^2.0.0, hexo-util@^2.5.0, hexo-util@^2.7.0:
   version "2.7.0"
@@ -782,6 +801,22 @@ hexo-util@^3.1.0:
     htmlparser2 "^9.0.0"
     prismjs "^1.29.0"
     strip-indent "^3.0.0"
+
+hexo-util@1.9.0:
+  version "1.9.0"
+  resolved "https://registry.npmjs.org/hexo-util/-/hexo-util-1.9.0.tgz"
+  integrity sha512-WXv8IYd9HFtP6u/y7uoI//Fmg88uhKKDto9KeNNRdWf4HG/bRh/1NcSQZWu81DOZNshWD1rvFU8OKb7bUnX1WA==
+  dependencies:
+    bluebird "^3.5.2"
+    camel-case "^4.0.0"
+    cross-spawn "^7.0.0"
+    deepmerge "^4.2.2"
+    highlight.js "^9.13.1"
+    htmlparser2 "^4.0.0"
+    prismjs "^1.17.1"
+    punycode.js "^2.1.0"
+    strip-indent "^3.0.0"
+    striptags "^3.1.1"
 
 hexo@^6.3.0:
   version "6.3.0"
@@ -818,6 +853,11 @@ highlight.js@^11.0.1, highlight.js@^11.6.0:
   resolved "https://registry.npmjs.org/highlight.js/-/highlight.js-11.8.0.tgz"
   integrity sha512-MedQhoqVdr0U6SSnWPzfiadUcDHfN/Wzq25AkXiQv9oiOO/sG0S7XkvpFIqWBl9Yq1UYyYOOVORs5UW2XlPyzg==
 
+highlight.js@^9.13.1:
+  version "9.18.5"
+  resolved "https://registry.npmjs.org/highlight.js/-/highlight.js-9.18.5.tgz"
+  integrity sha512-a5bFyofd/BHCX52/8i8uJkjr9DYwXIPnM/plwI6W7ezItLGqzt7X2G2nXuYSfsIJdkwwj/g9DG1LkcGJI/dDoA==
+
 html-encoding-sniffer@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/html-encoding-sniffer/-/html-encoding-sniffer-3.0.0.tgz"
@@ -840,6 +880,16 @@ htmlparser@^1.7.7:
   version "1.7.7"
   resolved "https://registry.npmjs.org/htmlparser/-/htmlparser-1.7.7.tgz"
   integrity sha512-zpK66ifkT0fauyFh2Mulrq4AqGTucxGtOhZ8OjkbSfcCpkqQEI8qRkY0tSQSJNAQ4HUZkgWaU4fK4EH6SVH9PQ==
+
+htmlparser2@^4.0.0:
+  version "4.1.0"
+  resolved "https://registry.npmjs.org/htmlparser2/-/htmlparser2-4.1.0.tgz"
+  integrity sha512-4zDq1a1zhE4gQso/c5LP1OtrhYTncXNSpvJYtWJBtXAETPlMfi3IFNjGuQbYLuVY4ZR0QMqRVvo4Pdy9KLyP8Q==
+  dependencies:
+    domelementtype "^2.0.1"
+    domhandler "^3.0.0"
+    domutils "^2.0.0"
+    entities "^2.0.0"
 
 htmlparser2@^7.0.0:
   version "7.2.0"
@@ -1295,6 +1345,11 @@ psl@^1.1.33:
   resolved "https://registry.npmjs.org/psl/-/psl-1.9.0.tgz"
   integrity sha512-E/ZsdU4HLs/68gYzgGTkMicWTLPdAftJLfJFlLUAAKZGkStNU72sZjT66SnMDVOfOWY/YAoiD7Jxa9iHvngcag==
 
+punycode.js@^2.1.0:
+  version "2.3.0"
+  resolved "https://registry.npmjs.org/punycode.js/-/punycode.js-2.3.0.tgz"
+  integrity sha512-AM9kSplQQCRlRkRZzx2EcqW2AQ9HuYoUzzl/tjJDNJEUeYHFGJ/rGE0a9cE1b41iuFz94pAwcEekC137Dd9Eyw==
+
 punycode@^2.1.1:
   version "2.3.0"
   resolved "https://registry.npmjs.org/punycode/-/punycode-2.3.0.tgz"
@@ -1463,6 +1518,11 @@ strip-indent@^3.0.0:
   integrity sha512-laJTa3Jb+VQpaC6DseHhF7dXVqHTfJPCRDaEbid/drOhgitgYku/letMUqOXFoWV0zIIUbjpdH2t+tYj4bQMRQ==
   dependencies:
     min-indent "^1.0.0"
+
+striptags@^3.1.1:
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/striptags/-/striptags-3.2.0.tgz"
+  integrity sha512-g45ZOGzHDMe2bdYMdIvdAfCQkCTDMGBazSw1ypMowwGIee7ZQ5dU0rBJ8Jqgl+jAKIv4dbeE1jscZq9wid1Tkw==
 
 stylus@*, stylus@^0.59.0:
   version "0.59.0"

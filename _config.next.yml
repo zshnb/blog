@@ -1,0 +1,24 @@
+cache:
+  enable: true
+minify: true
+sidebar:
+  position: left
+  display: always
+
+social:
+  GitHub: https://github.com/zshnb || fab fa-github
+social_icons:
+  enable: true
+site_state: true
+language: zh-CN
+symbols_count_time:
+  separated_meta: false
+  item_text_total: true
+  item_text_post: true
+tag_icon: true
+post_navigation: left
+menu:
+  home: / || fa fa-home
+  about: /about/ || fa fa-user
+  tags: /tags/ || fa fa-tags
+  archives: /archives/ || fa fa-archive
