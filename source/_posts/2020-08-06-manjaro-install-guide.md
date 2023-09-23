@@ -194,9 +194,11 @@ update: 2023年开始不需要在手动安装驱动了，系统安装完会自�
 - Dbeaver
 - Apifox
 - Deepin-wine-wechat
-- Chrome
+- Chrome，/opt/google/chrome/chrome --proxy-server="http://127.0.0.1:7890" 
 - Albert
 - Onedrive
 - Wps
 - ~~Flameshot~~
 - tmux
+- Neovide，专门为neovim做的gui，设置字体在keybindings.lua里输入`$fontName:style=Regular,Regular:h12`
+
