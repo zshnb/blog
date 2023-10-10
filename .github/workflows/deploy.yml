@@ -13,15 +13,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "18.18.0"
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: set github profile
-        env:
-          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
         run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          git config --global user.name 'zshnb' # github用户名
-          git config --global user.email 'a857681664@gmail.com' # github邮箱
+          git config --global user.name 'zshnb'
+          git config --global user.email 'a857681664@gmail.com'
       - name: hexo generate
         run: |
           npm i -g hexo
@@ -32,7 +30,7 @@ jobs:
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.PRIVATE_KEY }}
+          key: ${{ secrets.SSH_PUBLIC_KEY }}
           port: 22
           script: |
             cd blog
