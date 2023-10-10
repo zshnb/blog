@@ -22,3 +22,13 @@ menu:
   about: /about/ || fa fa-user
   tags: /tags/ || fa fa-tags
   archives: /archives/ || fa fa-archive
+
+footer:
+  since: 2019
+  beian:
+    enable: true
+    icp: 浙ICP备2023031828号
+
+index_with_subtitle: true
+exturl: true
+exturl_icon: true
