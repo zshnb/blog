@@ -20,9 +20,9 @@ jobs:
           git config --global user.name 'zshnb' # github用户名
           git config --global user.email 'a857681664@gmail.com' # github邮箱
           sed -i "s/GITHUB_ACCESS_TOKEN/$GITHUB_ACCESS_TOKEN/g" ./_config.yml
-      - name: Hexo
+      - name: hexo generate
         run: |
-          npm i -g Hexo-cli
+          npm i -g hexo
           npm i
           hexo clean && hexo g && hexo d
       - name: ssh remove server
