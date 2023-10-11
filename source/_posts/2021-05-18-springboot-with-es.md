@@ -11,7 +11,7 @@ tags:
 # 背景
 最近项目中用到了Elasticsearch，需要在SpringBoot项目上配置，网上找了一圈发现都是使用`ElasticsearchTemplate`操作，官方最新的推荐是使用
 `ElasticsearchRestTemplate`，基于HTTP协议与es交互。于是各种查资料，踩坑，在这里把一步步配置的过程记录一下。
-
+<!--more-->
 # 集成
 1. 首先创建一个SpringBoot项目，添加最基本的依赖和es的依赖(SpringBoot版本为2.3.3)
     ```xml
