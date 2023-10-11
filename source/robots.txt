@@ -1,4 +1,5 @@
-User-agent: * Allow: / 
+User-agent: * 
+Allow: / 
 Allow: /home/ 
 Allow: /about/ 
 Allow: /archives/ 
