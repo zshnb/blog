@@ -6,16 +6,18 @@ tags:
 - Redis
 ---
 
+# 背景
 缓存数据库双写一致性一直是面试的一个高频问题，网上关于这个问题的文章也非常多，大家的观点都不一致。这几天在看了十几篇文章后，再加上一些自己的思考，决定写下来供大家一起讨论。
 
 双写缓存一致性通常指的是1份数据要往缓存（Redis）和数据库（MySQL）里写，本质就是2个写的操作不是原子性的。因此我们可以从下面2个角度去思考
 1. 在无法达到原子性的前提下，哪一步操作失败危害最低？在高并发下的情况哪一种又会更好？
 2. 让2个写的操作原子性
 
-下面我们分别展开，首先从第1点开始。
+下面我们分别展开
+<!--more-->
 
+# 危害性低
 通用的数据库缓存读写模型大致是这样
-
 ```flow
 read=>start: 读请求
 exist=>condition: 缓存中有数据？
@@ -56,8 +58,8 @@ write_cache->e
 上面2个问题得出的都是先操作数据库优于先删除缓存，目前大多数人都是认为该方案较优。[代码实现](https://github.com/zshnb/interviewpractice/blob/master/src/main/java/com/zshnb/interviewpractice/cache_consistency/DelayedDeleteCacheStrategy.java)
 同时对缓存key的删除失败情况，可以选择简单重试，也就是延迟双删，或者使用消息队列记录删除失败的key，待后续继续处理
 
-接着讲第二点，让2个写操作原子性，有3种思路
 
+# 排他性
 1. 读写都加排他锁
 
    通过redis分布式锁，在读和写之前都要加锁，只有获取到锁才可以进行下一步操作，优点是简单，缺点是并发度较差。[代码实现](https://github.com/zshnb/interviewpractice/blob/master/src/main/java/com/zshnb/interviewpractice/cache_consistency/WithLockStrategy.java)
