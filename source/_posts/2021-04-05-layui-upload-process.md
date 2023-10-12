@@ -7,7 +7,7 @@ tags:
 ---
 # 背景
 最近手里一个项目用到了layui，遇到了一个需求，上传文件的时候需要显示进度条，但是layui的上传模块没有提供进度条回调
-
+<!--more-->
 # 搜索
 于是谷歌了一圈，发现一个大神魔改了layui的upload.js，加上了进度条回调功能 [访问原文](https://www.35youth.cn/644.html)，可惜原文的代码是不能直接复制使用的，于是我又找了一篇
 [踩坑帖子](https://www.liangzl.com/get-article-detail-162868.html)，这篇文章修复了很多错误，可以使用魔改的upload.js上传文件了
@@ -116,4 +116,4 @@ tags:
 最后出来结果如下：
 ![](img1.png)
 
-最后附上魔改后的js: <a href="/2021/04/05/2021-04-05-layui-upload-process/upload.js" target="_blank">附件1</a>
+最后附上魔改后的js: <a href="/2021-04-05-layui-upload-process/upload.js" target="_blank">附件1</a>
