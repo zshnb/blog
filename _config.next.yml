@@ -22,6 +22,7 @@ menu:
   about: /about/ || fa fa-user
   tags: /tags/ || fa fa-tags
   archives: /archives/ || fa fa-archive
+  links: /links/ || fa fa-link
 
 footer:
   since: 2019
