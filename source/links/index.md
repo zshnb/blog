@@ -78,6 +78,15 @@ date: 2021-06-16 00:34:27
                   <div class="info">这是一个分享IT技术的小站。</div>
                </div>
             </div>
+            <div class="card">
+               <img class="ava" src="https://www.xmrss.com/usr/uploads/2023/10/190501894.jpg" />
+               <div class="card-header">
+                  <div>
+                     <a href="codepoem.fun">梦半觉-CodePoem</a>
+                  </div>
+                  <div class="info">大梦谁先觉，平生我自知~</div>
+               </div>
+            </div>
          </div>
       </div>
    </div>
