@@ -9,7 +9,7 @@ tags:
 最近在重构Notion Converter插件的整体UI和功能，其中有个重构场景是当点击插件图标时，根据所在页面不同，行为也有所区别。如果在notion页面点击，弹出插件主题。如果在其他页面点击，弹出popup。
 
 根据[chrome插件文档](https://developer.chrome.com/docs/extensions/reference/action/#popup)说明，如果在manifest.json里配置了`default_popup`，那么popup点击事件就不会发送了。于是思路便是不设置`default_popup` ，同时监听插件点击事件，获取当前tab的url，如果是在notion页面，发送消息通知content_script.js
-
+<!--more-->
 ```jsx
 // background.js
 chrome.action.onClicked.addListener(async (tab) => {
@@ -33,9 +33,9 @@ chrome.action.onClicked.addListener(async (tab) => {
   if (/https:\/\/.*\.notion.so\/.*/.test(url)) {
     chrome.tabs.sendMessage(currentTab.id, {type: 'show-pop-content'})
   } else {
-		chrome.action.setPopup({tabId: tab.id, popup: 'popup.html'})
-		chrome.action.openPopup()
-	}
+    chrome.action.setPopup({tabId: tab.id, popup: 'popup.html'})
+    chrome.action.openPopup()
+  }
 });
 ```
 
