@@ -8,7 +8,7 @@ tags:
 ---
 
 最近接到一个需求，客户想要用[vaadin](https://vaadin.com/)（一个用Java构建web的框架）构建一个页面，然后接入[picovoice](https://picovoice.ai/)，客户想要一个demo，能支持在网页上语音唤醒，音频识别，意图分析。
-
+<!--more-->
 客户给了我一篇[博客](https://vaadin.com/blog/always-listening-voice-commands-for-vaadin-web-applications)参考，于是按照博客里的步骤，1. 用vaadin创建一个空应用。2. 接入语音唤醒。很快代码就写完了，运行后点击按钮发现报错'pv_porcupine_init' failed with status INVALID_ARGUMENT。尝试了谷歌搜索后，并没有找到有价值的信息。又去官方Github仓库issue里搜索，也搜不到类似的内容。搜索无果后尝试点开porcupine.pv文件，发现文件开头有版本信息
 
 ![](img1.png)
