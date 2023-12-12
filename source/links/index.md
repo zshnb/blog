@@ -79,12 +79,21 @@ date: 2021-06-16 00:34:27
                </div>
             </div>
             <div class="card">
-               <img class="ava" src="https://www.xmrss.com/usr/uploads/2023/10/190501894.jpg" />
+               <img class="ava" src="https://codepoem.fun/img/v_half.png" />
                <div class="card-header">
                   <div>
-                     <a href="codepoem.fun">梦半觉-CodePoem</a>
+                     <a href="https://codepoem.fun">梦半觉-CodePoem</a>
                   </div>
                   <div class="info">大梦谁先觉，平生我自知~</div>
+               </div>
+            </div>
+            <div class="card">
+               <img class="ava" src="https://mggg.cloud/img/favicon.ico" />
+               <div class="card-header">
+                  <div>
+                     <a href="https://mggg.cloud/">mggg的博客</a>
+                  </div>
+                  <div class="info">mggg的博客</div>
                </div>
             </div>
          </div>
