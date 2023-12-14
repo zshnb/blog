@@ -51,7 +51,13 @@ comments:
     valine:
       order: -1
 
-disqus:
+disqusjs:
   enable: true
   shortname: blog-gd5hg0lukx
+  api: https://disqus.com/api/3.0/
+  apikey: YJgyNSl14mmANcVTF2n4j8sr3R0eBKsw8R0kcgDzprIJ2ahQ9O4d6H6KX9Bunzt4
   count: true
+
+google_analytics:
+  tracking_id: UA-XXXXXXXX-X
+  only_pageview: false
