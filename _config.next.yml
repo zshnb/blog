@@ -41,3 +41,17 @@ custom_file_path:
   head: source/_data/head.swig
   postBodyStart: source/_data/postBodyStart.njk
   sidebar: source/_data/sidebar.njk
+
+comments:
+  active: disqus
+  style: tabs
+  storage: true
+  lazyload: false
+  nav:
+    valine:
+      order: -1
+
+disqus:
+  enable: true
+  shortname: blog-gd5hg0lukx
+  count: true
