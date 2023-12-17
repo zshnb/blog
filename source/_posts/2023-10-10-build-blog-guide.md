@@ -51,6 +51,11 @@ nexT官方推荐的配置文件是./config.next.yml，如果懒得看官方文�
 ## SEO配置
 参考[官方文档](https://theme-next.js.org/docs/theme-settings/seo)进行基础配置，接着配置各个搜索引擎的收录，这方面的资料很多，可以参考[这篇](https://blog.juanertu.com/archives/9013c8d8)
 
+## 评论系统
+最开始打算用valine，毕竟是nexT主题用的最多的评论系统之一，但在nexT官方[issue](https://github.com/next-theme/hexo-theme-next/issues/4)下
+提到由于valine不再开源，于是他们决定在8.1.0版本中移除valine的默认支持。所以我就把评论系统换成了disqus，可惜disqus被墙了，
+所以最终换成了disqusjs，通过disqus api的方式接入disqus评论。
+
 # 上线
 有了博客仓库后，接下来要做的事就是把网站上线到互联网，让大家访问了
 ## 云服务器
