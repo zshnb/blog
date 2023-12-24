@@ -4,7 +4,10 @@ minify: true
 sidebar:
   position: left
   display: always
-
+favicon:
+  small: images/favicon-16x16.png
+  medium: images/favicon-32x32.png
+  apple_touch_icon: images/apple-icon-180x180.png
 social:
   GitHub: https://github.com/zshnb || fab fa-github
 social_icons:
