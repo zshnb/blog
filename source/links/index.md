@@ -96,6 +96,15 @@ date: 2021-06-16 00:34:27
                   <div class="info">mggg的博客</div>
                </div>
             </div>
+            <div class="card">
+               <img class="ava" src="https://www.aitimi.cn/favicon.ico" />
+               <div class="card-header">
+                  <div>
+                     <a href="https://www.aitimi.cn/">accnight - 伴夜</a>
+                  </div>
+                  <div class="info">accnight - 伴夜</div>
+               </div>
+            </div>
          </div>
       </div>
    </div>
