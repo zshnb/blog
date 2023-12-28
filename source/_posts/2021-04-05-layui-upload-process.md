@@ -114,6 +114,6 @@ tags:
         })
 ```
 最后出来结果如下：
-![](img1.png)
+![结果](img1.png)
 
 最后附上魔改后的js: <a href="/2021-04-05-layui-upload-process/upload.js" target="_blank">附件1</a>

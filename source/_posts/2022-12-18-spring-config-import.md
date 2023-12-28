@@ -34,7 +34,7 @@ spring:
 
 然后指定profile为dev运行，打印common.name配置的值
 
-![](img1.png)
+![结果](img1.png)
 
 可以看到打印出了我们配置的值。
 
@@ -54,7 +54,7 @@ common:
 
 然后再次运行
 
-![](img2.png)
+![结果](img2.png)
 
 奇怪的事情发生了，运行的结果并没有按照我们希望的输出"from dev"，依然还是"zsh"，这是为什么呢？我们来翻一下SpringBoot官方的说明：
 

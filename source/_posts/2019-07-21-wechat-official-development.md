@@ -15,7 +15,7 @@ tags:
 
 1. 首先我们需要申请一个公众号，申请成功后进入**开发/基本配置**页面
 
-![](img1.png)
+![基本配置](img1.png)
 
 AppID，AppSecret：用来获取accessToken，accessToken是调用微信一切接口的凭证
 

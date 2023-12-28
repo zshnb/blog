@@ -238,8 +238,8 @@ public void generate(String json) throws IOException {
 }
 ```
 执行完会在给定的package下生成Java文件，然后我们运行测试看一下结果
-![](img1.png)
-![](img2.png)
+![测试](img1.png)
+![结果](img2.png)
 测试通过，说明我们生成的Java文件跟上面手写的类结构一致，当然这个生成器可以加入更多功能，比如为List类型的属性生成addXXX以及addAllXXX等方法，感兴趣的同学可以自行扩展一下。
 以及这里的读取是通过JSON，也可以通过读取Typescript的类型文件，或者protobuf的定义文件，生成最终的Java类
 最后贴上项目的[github地址](https://github.com/zshnb/new-pattern-design)

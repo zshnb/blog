@@ -37,7 +37,7 @@ commit
 4. 开启session3，执行`show processlist`查看结果
 最后结果如图
 
-![](img1.png)
+![结果](img1.png)
 
 可以看到drop table语句一直在卡着，直到等待时间超过lock timeout或者在开启事务的session里commit;
 

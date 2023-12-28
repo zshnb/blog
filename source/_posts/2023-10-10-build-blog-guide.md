@@ -61,11 +61,11 @@ nexT官方推荐的配置文件是./config.next.yml，如果懒得看官方文�
 ## 云服务器
 国内可以选购腾讯云，阿里云，华为云等，一般博客不需要很好的配置，1核2G足以，这里我用的是腾讯云。购买成功后，需要将自己的ssh 公钥加进服务器里。
 本地公钥文件在~/.ssh/id_rsa.pub里，然后在腾讯云云服务器里绑定
-![](img4.png)
+![绑定公钥](img4.png)
 创建成功后在密钥列表里选择刚才创建的密钥，绑定服务器即可
 ## 域名
 最好在你购买的云服务器厂商里注册，绑定解析什么的比较方便，后缀推荐.com|.org，最好不要选择.cn，注册好之后在域名服务商里添加解析
-![](img2.png)
+![域名](img2.png)
 ## 部署
 通过ssh登录服务器后
 1. 首先安装nginx`sudo apt update && sudo apt install nginx`
@@ -168,7 +168,7 @@ jobs:
             sudo nginx -s reload
 ```
 action里用到的secrets在仓库的settings -> secrets and variables -> actions里添加
-![](img5.png)
+![action](img5.png)
 
 # 总结
 至此一个个人博客就搭建完毕了，过程虽然比较多，但每个步骤都不算难，只是中间需要等待备案，比较磨人

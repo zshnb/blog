@@ -16,11 +16,11 @@ tags:
 - 我降低npm到8，问题消失
 
 于是确认是npm9导致的问题，我们又对比了8和9执行`npm install`命令所生成的package-lock.json不同处
-![](package-lock-diff.png)
+![diff](package-lock-diff.png)
 可以看到左边的`link: true`消失了，取而代之的是`file:xxx`，这个不同意味着8安装的本地依赖为link类型的文件夹，node_module
 中的依赖指向了外部源码文件夹，而9则变成了node_module中的依赖为独立文件夹，外部的更改无法同步，只能通过re-install同步。
 然后我在npm的官方仓库里找到了这个行为的变更记录
-![](npm-changelog.jpeg)
+![change log](npm-changelog.jpeg)
 可以看到第4条，更详细的还可以去看看对应的[PR](https://github.com/npm/cli/pull/5458)
 
 # 解决

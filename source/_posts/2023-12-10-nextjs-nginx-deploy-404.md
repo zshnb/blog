@@ -8,7 +8,7 @@ tags:
 ---
 
 周末没事干，正好被网上一个点子启发，做了个[人生进度可视化](https://zshnb.com/lifetime)的网页，网页功能比较简单，就是把每一天通过一个小格子显示在网页上，不同的阶段显示不同的颜色，同时也能切换时间单位。
-![](img1.png)
+![screenshots](img1.png)
 <!--more-->
 但是在部署的时候遇到点问题。一开始选择的是next.js的static export模式，导出静态html文件，在nginx里配置location如下
 ```text
