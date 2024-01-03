@@ -105,6 +105,15 @@ date: 2021-06-16 00:34:27
                   <div class="info">accnight - 伴夜</div>
                </div>
             </div>
+            <div class="card">
+               <img class="ava" src="https://easonyang.com/favicon-32x32.png" />
+               <div class="card-header">
+                  <div>
+                     <a href="https://easonyang.com/">easonyang</a>
+                  </div>
+                  <div class="info">easonyang</div>
+               </div>
+            </div>
          </div>
       </div>
    </div>
