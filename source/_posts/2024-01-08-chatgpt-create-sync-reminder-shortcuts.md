@@ -140,6 +140,8 @@ ChatGPT回答：
 
 最后分享一下这2个快捷指令
 
-- [创建Notion提醒事项](https://www.icloud.com/shortcuts/33ba89fa4ed849d0849dc6190a4e5a30)
+- [创建Notion提醒事项](https://www.icloud.com/shortcuts/6cb6dd4c684a477c8d1a5a19bba54866)
 
-- [同步Notion提醒事项](https://www.icloud.com/shortcuts/3302a4a8ceea4ea2b9043d1165f0fd62)
+- [同步Notion提醒事项](https://www.icloud.com/shortcuts/73711bab1d07454a9c7bf4c6e8b95fc0)
+
+本文由[NotionConverter](https://notionconverter.com)复制
