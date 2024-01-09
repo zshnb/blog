@@ -10,8 +10,10 @@ favicon:
   apple_touch_icon: images/apple-icon-180x180.png
 social:
   GitHub: https://github.com/zshnb || fab fa-github
+  Twitter: https://twitter.com/zhengsihua_dev || fab fa-twitter
+  E-Mail: mailto:a857681664@gmail.com || fa fa-envelope
 social_icons:
-  enable: true
+  icons_only: true
 site_state: true
 language: zh-CN
 symbols_count_time:
