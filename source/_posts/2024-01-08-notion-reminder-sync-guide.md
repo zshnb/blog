@@ -13,6 +13,9 @@ tags:
 ![复制secrets](img2.webp)
 1. 创建一个database，字段必须和图里的一模一样
 
+![设置integration权限](img6.png)
+1. 添加connection，给database设置integration权限
+
 ![创建database](img3.webp)
 1. 复制database页面url里的databaseId
 
