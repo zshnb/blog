@@ -44,13 +44,13 @@ exit
 > 🔑
 > **MySQL 8.xx 的关键配置文件和端口**
 > - mysql.service，这是服务的名称。您可以使用以下 systemctl 命令来管理它
-    > 	```
-> 	sudo systemctl start mysql.service
+> ```
+> sudo systemctl start mysql.service
 > sudo systemctl stop mysql.service
 > sudo systemctl restart mysql.service
 > sudo systemctl status mysql.service
->
-> 	```- /etc/mysql/ - MySQL 服务器的主要配置目录。- /etc/mysql/my.cnf - MySQL 数据库服务器的配置文件。编辑 .my.cnf ($HOME/.my.cnf) 文件来设置用户特定的选项。以下两个目录中的设置可以覆盖它：
+> ```
+> - /etc/mysql/ - MySQL 服务器的主要配置目录。- /etc/mysql/my.cnf - MySQL 数据库服务器的配置文件。编辑 .my.cnf ($HOME/.my.cnf) 文件来设置用户特定的选项。以下两个目录中的设置可以覆盖它：
 > /etc/mysql/conf.d//etc/mysql/mysql.conf.d/- TCP/3306 端口 - TCP/3306 是 MySQL 服务器的默认网络端口，出于安全考虑，它绑定在 127.0.0.1 上，可以更改这个设置，之后就可以通过在 /run/mysqld/ 目录下设置的 localhost 套接字来访问 MySQL 服务器。
 
 ## **第 4 步 - 加强 MySQL 8 服务器的安全性**
