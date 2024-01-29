@@ -7,8 +7,7 @@ tags:
 
 OpenAI最近发了一篇[博客](https://openai.com/blog/new-embedding-models-and-api-updates)，主要介绍了他们最近发布的新模型，同时新模型还降低了API的价格，做到了加量的同时不加价，最后还给开发者们带来了官方的API密钥管理工具，很多开发者在此前都是在自己的应用里记录API的用量情况，现在也不需要了，直接登录OpenAI的后台就能看到。下面是博客的中文翻译版。
 
-
-
+<!--more-->
 我们正在推出新的模型，降低 GPT-3.5 Turbo 的价格，并为开发者提供新的 API 密钥管理和 API 使用情况理解方法。新推出的模型包括：
 
 - 两款新的嵌入式表示（Embedding）模型
