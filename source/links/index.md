@@ -123,6 +123,15 @@ date: 2021-06-16 00:34:27
                   <div class="info">Code'Lin</div>
                </div>
             </div>
+            <div class="card">
+               <img class="ava" src="https://s11.ax1x.com/2024/01/29/pFufQUJ.png" />
+               <div class="card-header">
+                  <div>
+                     <a href="https://vwo50.club/">vwo50博客站</a>
+                  </div>
+                  <div class="info">记录生活，分享有趣，欢迎到访</div>
+               </div>
+            </div>
          </div>
       </div>
    </div>
