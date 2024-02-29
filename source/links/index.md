@@ -132,6 +132,15 @@ date: 2021-06-16 00:34:27
                   <div class="info">记录生活，分享有趣，欢迎到访</div>
                </div>
             </div>
+            <div class="card">
+               <img class="ava" src="https://prin.pw/images/favicon.png" />
+               <div class="card-header">
+                  <div>
+                     <a href="https://prin.pw/about/">PRIN BLOG</a>
+                  </div>
+                  <div class="info">半吊子全栈开发者的日常</div>
+               </div>
+            </div>
          </div>
       </div>
    </div>
