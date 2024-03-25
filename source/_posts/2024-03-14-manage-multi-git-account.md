@@ -10,16 +10,19 @@ tags:
 这样又有个问题，总是会不小心用公司Git用户提交了个人项目，导致经常需要重置提交后再覆盖提交信息。正好最近找到一个非常方便的解决方案，分享一下。
 <!--more-->
 
-1. 编辑~/.gitconfig，填入以下内容
+1. 编辑~/.gitconfig，填入以下内容，在这里配置的是主账户，像我就是配置的Github账户
 
 ```text
+[user]
+  name = xxx
+  email = xxx@gmail.com
 [includeIf "gitdir:**/Workbench/dior/**"]
 path = ~/.diorconfig
 [includeIf "gitdir:**/Workbench/**"]
 path = ~/.githubconfig
 ```
 
-2. 分别编辑.diorconfig和.githubconfig，填入不同的name和email
+2. 分别编辑.diorconfig和.githubconfig，填入不同的name和email，相当于子账户
 
 ```text
 [user]
