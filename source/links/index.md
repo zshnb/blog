@@ -141,6 +141,15 @@ date: 2021-06-16 00:34:27
                   <div class="info">半吊子全栈开发者的日常</div>
                </div>
             </div>
+            <div class="card">
+               <img class="ava" src="https://weirdo.cn/wdo-icon.gif" />
+               <div class="card-header">
+                  <div>
+                     <a href="https://weirdo.cn">Weirdo</a>
+                  </div>
+                  <div class="info">毛伊西格的怪言怪语</div>
+               </div>
+            </div>
          </div>
       </div>
    </div>
