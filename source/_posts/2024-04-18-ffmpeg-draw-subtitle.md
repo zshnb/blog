@@ -1,5 +1,5 @@
 ---
-title: ffmpeg拼接图片视频，添加文本出现的问题
+title: ffmpeg拼接图片视频，添加字幕无法对齐时间
 date: 2024-04-18 11:30:50
 tags:
   - Ffmpeg
