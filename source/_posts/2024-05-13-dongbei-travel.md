@@ -1,7 +1,8 @@
 ---
-title: 2024-05-13-dongbei-travel
+title: 2024五一东北旅行游记
 date: 2024-05-13 10:54:36
 tags:
+  - 旅行
 ---
 
 
