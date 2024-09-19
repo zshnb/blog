@@ -14,6 +14,7 @@ tags:
 
 - resumable upload
 
+<!--more-->
 前面2个upload最大支持5MB的文件，而我这个程序生成的视频最小都有几十MB，所以只能选择最后一种upload。
 
 按照[官方文档](https://developers.google.com/drive/api/guides/manage-uploads#resumable)的指南，resumable upload分为2个步骤：
