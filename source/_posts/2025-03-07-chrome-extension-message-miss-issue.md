@@ -2,7 +2,7 @@
 title: Chrome插件开发无法收到消息排查
 date: 2025-03-07 11:12:49
 tags:
-  - Chrome extension
+  - ChromeExtension
 ---
 
 最近开发的插件里有个功能是，从content_script发送消息到background，等待background处理完content_script执行剩下逻辑，类似以下逻辑
