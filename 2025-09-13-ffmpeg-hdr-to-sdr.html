@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="msvalidate.01" content="FDEF7F052E48D8D1B8136A8B3DF8AF9B">
+  <meta name="baidu-site-verification" content="codeva-KVoPqmDeib">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.zshnb.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":true,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"valine":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="背景最近有用户反馈平台上产出的clip色彩表现和原视频不一致，下载了原片和clip，对比图如下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用ffmpeg转码HDR视频为SDR">
+<meta property="og:url" content="https://blog.zshnb.com/2025-09-13-ffmpeg-hdr-to-sdr.html">
+<meta property="og:site_name" content="编程随想">
+<meta property="og:description" content="背景最近有用户反馈平台上产出的clip色彩表现和原视频不一致，下载了原片和clip，对比图如下">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.zshnb.com/2025-09-13-ffmpeg-hdr-to-sdr/1.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2025-09-13-ffmpeg-hdr-to-sdr/2.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2025-09-13-ffmpeg-hdr-to-sdr/3.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2025-09-13-ffmpeg-hdr-to-sdr/4.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2025-09-13-ffmpeg-hdr-to-sdr/5.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2025-09-13-ffmpeg-hdr-to-sdr/6.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2025-09-13-ffmpeg-hdr-to-sdr/7.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2025-09-13-ffmpeg-hdr-to-sdr/8.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2025-09-13-ffmpeg-hdr-to-sdr/9.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2025-09-13-ffmpeg-hdr-to-sdr/10.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2025-09-13-ffmpeg-hdr-to-sdr/11.webp">
+<meta property="article:published_time" content="2025-09-13T10:21:49.000Z">
+<meta property="article:modified_time" content="2025-11-25T11:20:45.630Z">
+<meta property="article:author" content="别处理">
+<meta property="article:tag" content="Ffmpeg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.zshnb.com/2025-09-13-ffmpeg-hdr-to-sdr/1.webp">
+
+
+<link rel="canonical" href="https://blog.zshnb.com/2025-09-13-ffmpeg-hdr-to-sdr.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.zshnb.com/2025-09-13-ffmpeg-hdr-to-sdr.html","path":"2025-09-13-ffmpeg-hdr-to-sdr.html","title":"使用ffmpeg转码HDR视频为SDR"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>使用ffmpeg转码HDR视频为SDR | 编程随想</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-XXXXXXXX-X","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5129204676047532"
+     crossorigin="anonymous"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1VGXEM5CZ4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1VGXEM5CZ4');
+</script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">编程随想</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3"><span class="nav-number">2.</span> <span class="nav-text">解决</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Quote"><span class="nav-number">4.</span> <span class="nav-text">Quote</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">别处理</p>
+  <div class="site-description" itemprop="description">编程随想</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3pzaG5i" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zshnb"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS96aGVuZ3NpaHVhX2Rldg==" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;zhengsihua_dev"><i class="fab fa-twitter fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmE4NTc2ODE2NjRAZ21haWwuY29t" title="E-Mail → mailto:a857681664@gmail.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5129204676047532"
+     crossorigin="anonymous"></script>
+<!-- 侧边栏 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5129204676047532"
+     data-ad-slot="2108142251"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.zshnb.com/2025-09-13-ffmpeg-hdr-to-sdr.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="别处理">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="编程随想">
+      <meta itemprop="description" content="编程随想">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="使用ffmpeg转码HDR视频为SDR | 编程随想">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用ffmpeg转码HDR视频为SDR
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-09-13 18:21:49" itemprop="dateCreated datePublished" datetime="2025-09-13T18:21:49+08:00">2025-09-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-11-25 19:20:45" itemprop="dateModified" datetime="2025-11-25T19:20:45+08:00">2025-11-25</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5129204676047532"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-5129204676047532"
+     data-ad-slot="3784186005"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script><h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>最近有用户反馈平台上产出的clip色彩表现和原视频不一致，下载了原片和clip，对比图如下</p>
+<span id="more"></span>
+<p>|<img src="/2025-09-13-ffmpeg-hdr-to-sdr/1.webp">|<img src="/2025-09-13-ffmpeg-hdr-to-sdr/2.webp">|</p>
+<p>通过ffprobe查看，发现原片的属性是<br>Stream #0:0<span class="exturl" data-url="aHR0cHM6Ly93d3cubm90aW9uLnNvL3poZW5nc2lodWEvdW5k">0x1<i class="fa fa-external-link-alt"></i></span>: Video: hevc (Main 10) (hvc1 &#x2F; 0x31637668), <strong>yuv420p10le(tv, bt2020nc&#x2F;bt2020&#x2F;arib-std-b67)</strong>, 1920x1080, 13043 kb&#x2F;s, 60 fps, 60 tbr, 600 tbn (default)，这里稍微解释一下属性的含义，yuv420p表示yuv色彩空间，三元素比例是4:2:0，10le表示用10bit的颜色位深，bt2020nc表示bt2020色域，通过下图可以更直观地看出参数含义。</p>
+<p>|<img src="/2025-09-13-ffmpeg-hdr-to-sdr/3.webp">|<img src="/2025-09-13-ffmpeg-hdr-to-sdr/4.webp">|</p>
+<p>简单来说yuv420p10le bt2020的视频属于HDR视频，而目前大部分在线媒体，像YouTube，以及比较旧的播放器都不支持HDR视频，播放的都是SDR（yuv420p bt709）视频，因此需要把用户的HDR视频经过转码变成SDR视频，同时还要使用GPU，加速转码过程。</p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>首先在新服务器上尝试使用ffmpeg with gpu命令转码问题视频，报错</p>
+<p>Provided device doesn’t support required NVENC features。</p>
+<p>经过一番搜索，从<span class="exturl" data-url="aHR0cDovL21wbGF5ZXJocS5odS9waXBlcm1haWwvZmZtcGVnLXVzZXIvMjAxOS1TZXB0ZW1iZXIvMDQ1MzE4Lmh0bWw=">这篇帖子<i class="fa fa-external-link-alt"></i></span>里得到一些启发，大意是GPU decode 10bit的h265 frame，无法直接被GPU h264 encoder接收，中间需要有个改变format的filter，按着这个思路排查搜索，最终尝试<code>ffmpeg -y -hwaccel cuda -hwaccel_output_format cuda -i UPL_1vKBpdd4iX.mp4 -vf hwdownload,format=p010le,format=nv12,hwupload,scale_npp=format=yuv420p -c:v h264_nvenc output.mp4</code> 可以成功转码，于是转码的问题搞定了，接着要解决colorspace的问题。</p>
+<p>一开始直接搜索ffmpeg change colorspace，从<span class="exturl" data-url="aHR0cHM6Ly93d3cucmVkZGl0LmNvbS9yL2ZmbXBlZy9jb21tZW50cy96enptbG4veXV2NDIwcHR2X2J0NzA5X3Byb2dyZXNzaXZlLw==">这里<i class="fa fa-external-link-alt"></i></span>得到了<code>-pix_fmt:v yuv420p -colorspace:v &#39;bt709&#39; -color_primaries:v &#39;bt709&#39; -color_trc:v &#39;bt709&#39; -color_range:v &#39;tv&#39;</code> 尝试运行后发现色彩还是不对。于是在video forum发了一个<span class="exturl" data-url="aHR0cHM6Ly9mb3J1bS52aWRlb2hlbHAuY29tL3RocmVhZHMvNDEwNjQ2LWZmbXBlZy1jb2xvcnNwYWNlLWJ0MjAyMC1jb252ZXJ0LXRvLWJ0NzA5LXRoZS1jb2xvci1pcy1ub3QtY29ycmVjdCNwb3N0MjcwMDQxMw==">帖子<i class="fa fa-external-link-alt"></i></span>，里面有人回复到使用<code>-vf zscale=t=linear:npl=100,format=gbrpf32le,zscale=p= 709,tonemap=hable:desat=2,zscale=t=709:m=709:r=tv, format=yuv420p</code> filter可以改变视频色域。zscale是一个第三方的filter，需要自己编译ffmpeg时额外加上依赖开启，于是自己在服务器上编译了一个带zscale filter的最新版ffmpeg（由于本文使用的ffmpeg需要非常多额外库，因此使用的是本地编译版本，关于编译ffmpeg的文章请看<a href="/e9a65c437e5b459d8636d4dcb1c281e2?pvs=25">这里</a>），尝试效果如下，</p>
+<p>|<img src="/2025-09-13-ffmpeg-hdr-to-sdr/5.webp" alt="原片">|<img src="/2025-09-13-ffmpeg-hdr-to-sdr/6.webp" alt="转换后的">|</p>
+<p>可以看出颜色确实对了，但是有点偏暗。更严重的是编码速度只有0.x，于是尝试使用GPU加速，尝试了<code>./ffmpeg -y -vsync 0 -hwaccel cuda -hwaccel_output_format cuda -i UPL_1vKBpdd4iX_slice.mp4 -vf hwdownload,format=p010le,format=nv12,hwupload,scale_npp=format=yuv420p,zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=709,tonemap=hable:desat=2,zscale=t=709:m=709:r=tv,format=yuv420p -c:v h264_nvenc output.mp4</code> 但是这条命令会报错Impossible to convert between the formats supported by the filter ‘Parsed_scale_npp_4’ and the filter ‘auto_scale_1’，于是在帖子下面继续提问，然后就有人回复说zscale filter不支持GPU加速，这个方式pass。</p>
+<p>上面发的帖子里，有个人回复建议搜索HDR to SDR with tonemap。于是我又加上了GPU关键字进行搜索，经过一番搜索，从<span class="exturl" data-url="aHR0cHM6Ly9mb3J1bS5kb29tOS5vcmcvc2hvd3RocmVhZC5waHA/dD0xODE0MDk=">这里<i class="fa fa-external-link-alt"></i></span>找到了这条命令<code>./ffmpeg -y -vsync 0 -hwaccel cuda -init_hw_device opencl=ocl -filter_hw_device ocl -threads 16 -i UPL_1vKBpdd4iX_slice.mp4 -vf &quot;format=p010,hwupload,tonemap_opencl=tonemap=hable:desat=0:r=tv:p=bt709:t=bt709:m=bt709:format=nv12,hwdownload,format=nv12&quot; -c:a copy -c:v h264_nvenc output.slice.hable.mp4</code></p>
+<p>这条命令跑出来的效果如下</p>
+<p><img src="/2025-09-13-ffmpeg-hdr-to-sdr/7.webp"><br>可以看到效果比zscale还好，而且速度在2.x左右，<code>tonemap_opencl</code>是ffmpeg自带的filter，从<span class="exturl" data-url="aHR0cHM6Ly9mZm1wZWcub3JnL2ZmbXBlZy1maWx0ZXJzLmh0bWwjVG9uZS1tYXBwaW5n">文档<i class="fa fa-external-link-alt"></i></span>里可以看到有许多tonemapping参数可以配置，经过测试后发现hable的色彩效果是最好的，只是亮度还是稍微有点暗。</p>
+<p>在搜索过程中发现了一个<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL25pbGFvZGEvQmxvZy9kaXNjdXNzaW9ucy81Ng==">帖子<i class="fa fa-external-link-alt"></i></span>，里面提到了一个叫做libplacebo的filter，可以用来做杜比视界的转码，查看<span class="exturl" data-url="aHR0cHM6Ly9jb2RlLnZpZGVvbGFuLm9yZy92aWRlb2xhbi9saWJwbGFjZWJv">官方链接<i class="fa fa-external-link-alt"></i></span>发现，它是一个支持GPU加速的渲染依赖，支持高质量编码分辨率， HDR映射等。于是赶紧按照官方文档教程安装，配置好<span class="exturl" data-url="aHR0cHM6Ly92dWxrYW4ubHVuYXJnLmNvbS9zZGsvaG9tZQ==">vulkan<i class="fa fa-external-link-alt"></i></span>，<span class="exturl" data-url="aHR0cHM6Ly92dWxrYW4ubHVuYXJnLmNvbS9pc3N1ZS9ob21lP2xpbWl0PTEwO3E9O21pbmU9ZmFsc2U7b3JnPWZhbHNlO2tocm9ub3M9ZmFsc2U7bHVuYXJnPWZhbHNlO2luZGllPWZhbHNlO3N0YXR1cz1uZXcsb3Blbg==">设置vk.xml<i class="fa fa-external-link-alt"></i></span>，安装完毕后测试命令<code>./ffmpeg -y -init_hw_device vulkan=vulkan -filter_hw_device vulkan -i UPL_0UOVszENQF.mp4 -vf &quot;hwupload,libplacebo=format=yuv420p10le:colorspace=bt709:color_primaries=bt709:color_trc=bt709:format=yuv420p&quot; -c:v libx264 -c:a copy UPL_0UOVszENQF.libplacebo.mp4</code> 效果如下</p>
+<p><img src="/2025-09-13-ffmpeg-hdr-to-sdr/8.webp"><br>可以看到效果比tonemap还要好，但是速度还是很慢，只有0.x。于是尝试使用GPU加速<code>./ffmpeg -y -hwaccel cuda -hwaccel_output_format cuda -extra_hw_frames 3 -i UPL_0UOVszENQF.mp4 -vf &quot;hwupload=derive_device=vulkan,libplacebo=format=yuv420p10le:colorspace=bt709:color_primaries=bt709:color_trc=bt709,hwdownload,format=yuv420p&quot; -c:v h264_nvenc -c:a copy UPL_0UOVszENQF.libplacebo.cuda.mp4</code> 会报错</p>
+<p>Impossible to convert between the formats supported by the filter ‘Parsed_hwupload_0’ and the filter ‘auto_scale_0’。</p>
+<p>尝试按照关键字libplacebo CUDA，以及错误信息搜索，从这个<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2plbGx5ZmluL2plbGx5ZmluLWZmbXBlZy9pc3N1ZXMvMjE1">issue<i class="fa fa-external-link-alt"></i></span>里看到一条回复</p>
+<p><img src="/2025-09-13-ffmpeg-hdr-to-sdr/9.webp"><br>于是尝试把libplacebo降级编译，但是编译过程中报错与vulkan版本不兼容，于是尝试降级vulkan，再次编译，又报错ffmpeg不支持低版本vulkan，于是继续降级ffmpeg，结果ffmpeg编译又报错找不到nvenc。没办法，只好向libplacebo作者开<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2hhYXNuL2xpYnBsYWNlYm8vaXNzdWVzLzE4Nw==">issue<i class="fa fa-external-link-alt"></i></span>提问。作者表示需要等他的GPU设备到了才能测试，同时让我尝试6.292.1版本的libplacebo，并提供执行过程日志给他。</p>
+<p>于是又开始尝试编译master分支的ffmpeg和6.292.1的libplacebo，经过测试还是一模一样的错误。</p>
+<p>接着下面有一位大佬回复道</p>
+<blockquote>
+<p>There is a problem with the descriptor buffer on NVIDIA, for ffmpeg master you must disable multiplane, also you should use nvdec instead of cuda and use hwupload at the end of the filter chain to avoid pointless copy operations.</p>
+</blockquote>
+<p>同时提供了如下命令</p>
+<p><code>./ffmpeg -y -init_hw_device vulkan=vk,disable_multiplane=1 -filter_hw_device vk -hwaccel nvdec -hwaccel_output_format cuda -extra_hw_frames 3 -i UPL_0UOVszENQF.mp4 -vf &quot;hwupload=derive_device=vulkan,libplacebo=format=yuv420p10le:colorspace=bt709:color_primaries=bt709:color_trc=bt709,hwupload=derive_device=cuda&quot; -c:v h264_nvenc -c:a copy UPL_0UOVszENQF.libplacebo.cuda.mp4</code></p>
+<p>很可惜这条命令会报错</p>
+<p>[h264_nvenc @ 0x55b770cbbac0] 10 bit encode not supported<br>[h264_nvenc @ 0x55b770cbbac0] Provided device doesn’t support required NVENC features<br>[vost#0:0&#x2F;h264_nvenc @ 0x55b770c6a300] Error while opening encoder - maybe incorrect parameters such as bit_rate, rate, width or height.<br>Error while filtering: Function not implemented<br>[out#0&#x2F;mp4 @ 0x55b770cbc4c0] Nothing was written into output file, because at least one of its streams received no packets</p>
+<p>有了前面CUDA转码的排查经验后，从报错信息里很快发现了问题所在，又是因为nvenc不支持10bit的frame，于是把libplacebo的format参数改成yuv420p，执行成功！同时速度在10x左右，非常快。</p>
+<p><img src="/2025-09-13-ffmpeg-hdr-to-sdr/10.webp"><br>效果如下</p>
+<p><img src="/2025-09-13-ffmpeg-hdr-to-sdr/11.webp"><br>可以看到色彩饱和度和原片非常接近，亮度基本和原片一致。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>为了解决colorspace的问题，排查摸索了大概3天左右，最终得到如下几种解决方案</p>
+<ol>
+<li><p><code>./ffmpeg -y -vsync 0 -hwaccel cuda -hwaccel_output_format cuda -i UPL_1vKBpdd4iX_slice.mp4 -vf hwdownload,format=p010le,format=nv12,hwupload,scale_npp=format=yuv420p,zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=709,tonemap=hable:desat=2,zscale=t=709:m=709:r=tv,format=yuv420p -c:v h264_nvenc output.mp4</code> 速度慢，色彩还可以，亮度暗</p>
+</li>
+<li><p><code>./ffmpeg -y -vsync 0 -hwaccel cuda -init_hw_device opencl=ocl -filter_hw_device ocl -threads 16 -i UPL_1vKBpdd4iX_slice.mp4 -vf &quot;format=p010,hwupload,tonemap_opencl=tonemap=hable:desat=0:r=tv:p=bt709:t=bt709:m=bt709:format=nv12,hwdownload,format=nv12&quot; -c:a copy -c:v h264_nvenc output.slice.hable.mp4</code> 速度稍快，色彩不错，亮度暗</p>
+</li>
+<li><p><code>./ffmpeg -y -init_hw_device vulkan=vulkan -filter_hw_device vulkan -i UPL_0UOVszENQF.mp4 -vf &quot;hwupload,libplacebo=format=yuv420p10le:colorspace=bt709:color_primaries=bt709:color_trc=bt709:format=yuv420p&quot; -c:v libx264 -c:a copy UPL_0UOVszENQF.libplacebo.mp4</code> 速度慢，色彩好，亮度亮</p>
+</li>
+<li><p><code>./ffmpeg -y -init_hw_device vulkan=vk,disable_multiplane=1 -filter_hw_device vk -hwaccel nvdec -hwaccel_output_format cuda -i UPL_0UOVszENQF.mp4 -vf &quot;hwupload=derive_device=vulkan,libplacebo=format=yuv420p:colorspace=bt709:color_primaries=bt709:color_trc=bt709,hwupload=derive_device=cuda&quot; -preset:v fast -tune:v hq -rc:v vbr -cq:v 22 -b:v 0 -c:v h264_nvenc -c:a copy UPL_0UOVszENQF.libplacebo.cuda.mp4</code> 速度快，色彩好，亮度亮，最终方案</p>
+</li>
+</ol>
+<h1 id="Quote"><a href="#Quote" class="headerlink" title="Quote"></a>Quote</h1><ul>
+<li><p><span class="exturl" data-url="aHR0cHM6Ly93d3cudmRyLXBvcnRhbC5kZS9mb3J1bS9pbmRleC5waHA/dGhyZWFkLzEzNTU2Ny1zb2Z0aGR2YWFwaS1saWJwbGFjZWJvLWV0LWFsLyZwYWdlTm89Mg==">https://www.vdr-portal.de/forum/index.php?thread/135567-softhdvaapi-libplacebo-et-al/&pageNo=2<i class="fa fa-external-link-alt"></i></span></p>
+</li>
+<li><p><span class="exturl" data-url="aHR0cHM6Ly93ZWIuYXJjaGl2ZS5vcmcvd2ViLzIwMTgwODE3MTk1NjQwL2h0dHBzOi8vc3RldmVucy5saS9ndWlkZXMvdmlkZW8vY29udmVydGluZy1oZHItdG8tc2RyLXdpdGgtZmZtcGVnLw==">https://web.archive.org/web/20180817195640/https://stevens.li/guides/video/converting-hdr-to-sdr-with-ffmpeg/<i class="fa fa-external-link-alt"></i></span></p>
+</li>
+<li><p><span class="exturl" data-url="aHR0cHM6Ly9mb3J1bS5kb29tOS5vcmcvc2hvd3RocmVhZC5waHA/dD0xNzUxMjUmcGFnZT0y">https://forum.doom9.org/showthread.php?t=175125&page=2<i class="fa fa-external-link-alt"></i></span></p>
+</li>
+<li><p><span class="exturl" data-url="aHR0cHM6Ly93d3cucmVkZGl0LmNvbS9yL2ZmbXBlZy9jb21tZW50cy9xMnlramQvY29sb3JzcGFjZV9oZWxwX3BsZWFzZS8=">https://www.reddit.com/r/ffmpeg/comments/q2ykjd/colorspace_help_please&#x2F;<i class="fa fa-external-link-alt"></i></span></p>
+</li>
+<li><p><span class="exturl" data-url="aHR0cHM6Ly9lbWJ5Lm1lZGlhL2NvbW11bml0eS9pbmRleC5waHA/L3RvcGljLzEwNzQyOS1udmRlYy1oMjY1LWRlY29kaW5nLW5vdC13b3JraW5nLWJ1dC1jdXZpZC1kb2VzLw==">https://emby.media/community/index.php?/topic/107429-nvdec-h265-decoding-not-working-but-cuvid-does/<i class="fa fa-external-link-alt"></i></span></p>
+</li>
+<li><p><span class="exturl" data-url="aHR0cHM6Ly9mb3J1bS5kb29tOS5vcmcvc2hvd3RocmVhZC5waHA/dD0xNjg4MTQmcGFnZT0xODM=">https://forum.doom9.org/showthread.php?t=168814&page=183<i class="fa fa-external-link-alt"></i></span></p>
+</li>
+<li><p><span class="exturl" data-url="aHR0cHM6Ly9mb3J1bS5kb29tOS5vcmcvc2hvd3RocmVhZC5waHA/cD0xODY2NjEz">https://forum.doom9.org/showthread.php?p=1866613<i class="fa fa-external-link-alt"></i></span></p>
+</li>
+<li><p><span class="exturl" data-url="aHR0cHM6Ly9mb3J1bS52aWRlb2hlbHAuY29tL3RocmVhZHMvMzg0NDk0LU1vZGlmeS1Db2xvci1TcGFjZS1GbGFnL3BhZ2Uy">https://forum.videohelp.com/threads/384494-Modify-Color-Space-Flag/page2<i class="fa fa-external-link-alt"></i></span></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Ffmpeg/" rel="tag"><i class="fa fa-tag"></i> Ffmpeg</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025-08-02-jackson-inheritance-property-miss.html" rel="prev" title="Jackson序列化有继承关系的类属性消失">
+                  <i class="fa fa-angle-left"></i> Jackson序列化有继承关系的类属性消失
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025-10-20-south-koera-travel.html" rel="next" title="2025国庆节韩国（首尔+釜山—）游记">
+                  2025国庆节韩国（首尔+釜山—）游记 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments disqusjs-container">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><span class="exturl" data-url="aHR0cHM6Ly9iZWlhbi5taWl0Lmdvdi5jbg==">浙ICP备2023031828号 </span>
+  </div>
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">别处理</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">122k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9tdXNlLw==">NexT.Muse</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/disqusjs/3.0.2/styles/disqusjs.css" integrity="sha256-71XarXwNr1Td27HmZI9zjY+rMzRdush6/glo6VFXp7o=" crossorigin="anonymous">
+
+<script class="next-config" data-name="disqusjs" type="application/json">{"enable":true,"api":"https://disqus.com/api/3.0/","apikey":"YJgyNSl14mmANcVTF2n4j8sr3R0eBKsw8R0kcgDzprIJ2ahQ9O4d6H6KX9Bunzt4","shortname":"blog-gd5hg0lukx","count":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/disqusjs/3.0.2/disqusjs.es2015.umd.min.js","integrity":"sha256-okP99ZQKVpIy7+NogAMpGlIQzJa9XKXhIJcFgdju5bU="}}</script>
+<script src="/js/third-party/comments/disqusjs.js"></script>
+
+</body>
+</html>

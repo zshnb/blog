@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="msvalidate.01" content="FDEF7F052E48D8D1B8136A8B3DF8AF9B">
+  <meta name="baidu-site-verification" content="codeva-KVoPqmDeib">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.zshnb.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":true,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"valine":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="第 1 步 - 更新系统确保我们的系统是最新的，要更新系统，请运行以下 apt 命令： 123sudo apt updatesudo apt list --upgradablesudo apt upgrade">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ubuntu一步到位安装并连接MySQL">
+<meta property="og:url" content="https://blog.zshnb.com/2024-01-19-ubuntu-install-mysql.html">
+<meta property="og:site_name" content="编程随想">
+<meta property="og:description" content="第 1 步 - 更新系统确保我们的系统是最新的，要更新系统，请运行以下 apt 命令： 123sudo apt updatesudo apt list --upgradablesudo apt upgrade">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.zshnb.com/2024-01-19-ubuntu-install-mysql/img1.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2024-01-19-ubuntu-install-mysql/img2.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2024-01-19-ubuntu-install-mysql/img3.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2024-01-19-ubuntu-install-mysql/img4.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2024-01-19-ubuntu-install-mysql/img5.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2024-01-19-ubuntu-install-mysql/img6.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2024-01-19-ubuntu-install-mysql/img7.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2024-01-19-ubuntu-install-mysql/img8.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2024-01-19-ubuntu-install-mysql/img9.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2024-01-19-ubuntu-install-mysql/img10.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2024-01-19-ubuntu-install-mysql/img11.webp">
+<meta property="article:published_time" content="2024-01-19T04:22:51.000Z">
+<meta property="article:modified_time" content="2025-11-25T11:20:45.535Z">
+<meta property="article:author" content="别处理">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.zshnb.com/2024-01-19-ubuntu-install-mysql/img1.webp">
+
+
+<link rel="canonical" href="https://blog.zshnb.com/2024-01-19-ubuntu-install-mysql.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.zshnb.com/2024-01-19-ubuntu-install-mysql.html","path":"2024-01-19-ubuntu-install-mysql.html","title":"ubuntu一步到位安装并连接MySQL"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ubuntu一步到位安装并连接MySQL | 编程随想</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-XXXXXXXX-X","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5129204676047532"
+     crossorigin="anonymous"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1VGXEM5CZ4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1VGXEM5CZ4');
+</script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">编程随想</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-1-%E6%AD%A5-%E6%9B%B4%E6%96%B0%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">第 1 步 - 更新系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-2-%E6%AD%A5-%E5%9C%A8-Ubuntu-22-04-LTS-%E4%B8%8A%E5%AF%BB%E6%89%BE-MySQL-8-%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="nav-number">2.</span> <span class="nav-text">第 2 步 - 在 Ubuntu 22.04 LTS 上寻找 MySQL 8 服务器软件包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-3-%E6%AD%A5-%E5%AE%89%E8%A3%85-MySQL-8-%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="nav-number">3.</span> <span class="nav-text">第 3 步 - 安装 MySQL 8 服务器软件包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E6%A0%B9%E8%B4%A6%E6%88%B7%E8%AE%BE%E7%BD%AE%E5%AF%86%E7%A0%81"><span class="nav-number">3.1.</span> <span class="nav-text">为根账户设置密码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-4-%E6%AD%A5-%E5%8A%A0%E5%BC%BA-MySQL-8-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7"><span class="nav-number">4.</span> <span class="nav-text">第 4 步 - 加强 MySQL 8 服务器的安全性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-5-%E6%AD%A5-%E8%AE%BE%E7%BD%AE-MySQL-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="nav-number">5.</span> <span class="nav-text">第 5 步 - 设置 MySQL 服务器开机自启</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-6-%E6%AD%A5-%E5%90%AF%E5%8A%A8-%E5%81%9C%E6%AD%A2-%E9%87%8D%E5%90%AF-MySQL-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">6.</span> <span class="nav-text">第 6 步 - 启动&#x2F;停止&#x2F;重启 MySQL 服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-7-%E6%AD%A5-%E7%99%BB%E5%BD%95-MySQL-8-%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95"><span class="nav-number">7.</span> <span class="nav-text">第 7 步 - 登录 MySQL 8 服务器进行测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC-8-%E6%AD%A5-%E9%85%8D%E7%BD%AE-MySQL-8-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">8.</span> <span class="nav-text">第 8 步 - 配置 MySQL 8 服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC9%E6%AD%A5-%E9%80%9A%E8%BF%87DataGrip%E8%BF%9E%E6%8E%A5MySQL"><span class="nav-number">9.</span> <span class="nav-text">第9步 - 通过DataGrip连接MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85DataGrip"><span class="nav-number">9.1.</span> <span class="nav-text">安装DataGrip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEssh-key"><span class="nav-number">9.2.</span> <span class="nav-text">配置ssh-key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0MySQL%E8%BF%9E%E6%8E%A5"><span class="nav-number">9.3.</span> <span class="nav-text">添加MySQL连接</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">别处理</p>
+  <div class="site-description" itemprop="description">编程随想</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3pzaG5i" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zshnb"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS96aGVuZ3NpaHVhX2Rldg==" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;zhengsihua_dev"><i class="fab fa-twitter fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmE4NTc2ODE2NjRAZ21haWwuY29t" title="E-Mail → mailto:a857681664@gmail.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5129204676047532"
+     crossorigin="anonymous"></script>
+<!-- 侧边栏 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5129204676047532"
+     data-ad-slot="2108142251"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.zshnb.com/2024-01-19-ubuntu-install-mysql.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="别处理">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="编程随想">
+      <meta itemprop="description" content="编程随想">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ubuntu一步到位安装并连接MySQL | 编程随想">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ubuntu一步到位安装并连接MySQL
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-01-19 12:22:51" itemprop="dateCreated datePublished" datetime="2024-01-19T12:22:51+08:00">2024-01-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-11-25 19:20:45" itemprop="dateModified" datetime="2025-11-25T19:20:45+08:00">2025-11-25</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5129204676047532"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-5129204676047532"
+     data-ad-slot="3784186005"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script><h2 id="第-1-步-更新系统"><a href="#第-1-步-更新系统" class="headerlink" title="第 1 步 - 更新系统"></a><strong>第 1 步 - 更新系统</strong></h2><p>确保我们的系统是最新的，要更新系统，请运行以下 <span class="exturl" data-url="aHR0cHM6Ly93d3cuY3liZXJjaXRpLmJpei9mYXEvdWJ1bnR1LWx0cy1kZWJpYW4tbGludXgtYXB0LWNvbW1hbmQtZXhhbXBsZXMv">apt 命令<i class="fa fa-external-link-alt"></i></span>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt list --upgradable</span><br><span class="line">sudo apt upgrade</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p><img src="/2024-01-19-ubuntu-install-mysql/img1.webp" alt="更新系统"><br><img src="/2024-01-19-ubuntu-install-mysql/img2.webp" alt="更新系统"></p>
+<h2 id="第-2-步-在-Ubuntu-22-04-LTS-上寻找-MySQL-8-服务器软件包"><a href="#第-2-步-在-Ubuntu-22-04-LTS-上寻找-MySQL-8-服务器软件包" class="headerlink" title="第 2 步 - 在 Ubuntu 22.04 LTS 上寻找 MySQL 8 服务器软件包"></a><strong>第 2 步 - 在 Ubuntu 22.04 LTS 上寻找 MySQL 8 服务器软件包</strong></h2><p>我们可以使用 apt-cache 命令或 <span class="exturl" data-url="aHR0cHM6Ly93d3cuY3liZXJjaXRpLmJpei9mYXEvdWJ1bnR1LWx0cy1kZWJpYW4tbGludXgtYXB0LWNvbW1hbmQtZXhhbXBsZXMv">apt 命令<i class="fa fa-external-link-alt"></i></span> 来查找 Ubuntu 22.04 LTS 上的 MySQL 服务器和客户端软件包。例如：apt-cache search mysql-server<br>系统会显示一系列可用选项，其中包括 Oracle MySQL 8.xx 和 MariaDB 10.x 的服务器和客户端软件包。</p>
+<p><img src="/2024-01-19-ubuntu-install-mysql/img3.webp" alt="搜索mysql包"></p>
+<blockquote>
+<p>🔑<br>mysql-server-8.0 与 mysql-server-core-8.0 软件包对比：</p>
+<ul>
+<li><strong>mysql-server-8.0</strong> – 这个包几乎在所有情况下都是必需的。它包含了 MySQL 数据库服务器的二进制文件、客户端和系统数据库的设置。- <strong>mysql-server-core-8.0</strong> – 这个包包含服务器的二进制文件，但不包括设置系统数据库所需的全部基础设施。因此，这个包更适合那些要设置 Linux 容器（如 Docker、LXD 等）且不需要所有额外组件（例如 mysql 客户端）的用户。</li>
+</ul>
+</blockquote>
+<h2 id="第-3-步-安装-MySQL-8-服务器软件包"><a href="#第-3-步-安装-MySQL-8-服务器软件包" class="headerlink" title="第 3 步 - 安装 MySQL 8 服务器软件包"></a><strong>第 3 步 - 安装 MySQL 8 服务器软件包</strong></h2><p>我们将在 Ubuntu 22.04 LTS 上安装 MySQL 服务器版本 8.0.28：<br>sudo apt install mysql-server-8.0</p>
+<p><img src="/2024-01-19-ubuntu-install-mysql/img4.webp" alt="安装mysql-server-8.0"></p>
+<h3 id="为根账户设置密码"><a href="#为根账户设置密码" class="headerlink" title="为根账户设置密码"></a><strong>为根账户设置密码</strong></h3><p>首先，设置根账户的密码，运行sudo mysql ，然后按照以下语法设置密码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;My7Pass@Word_9_8A_zE&#x27;;</span><br><span class="line">exit</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>🔑<br><strong>MySQL 8.xx 的关键配置文件和端口</strong></p>
+<ul>
+<li>mysql.service，这是服务的名称。您可以使用以下 systemctl 命令来管理它<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start mysql.service</span><br><span class="line">sudo systemctl stop mysql.service</span><br><span class="line">sudo systemctl restart mysql.service</span><br><span class="line">sudo systemctl status mysql.service</span><br></pre></td></tr></table></figure></li>
+<li>&#x2F;etc&#x2F;mysql&#x2F; - MySQL 服务器的主要配置目录。- &#x2F;etc&#x2F;mysql&#x2F;my.cnf - MySQL 数据库服务器的配置文件。编辑 .my.cnf ($HOME&#x2F;.my.cnf) 文件来设置用户特定的选项。以下两个目录中的设置可以覆盖它：<br>&#x2F;etc&#x2F;mysql&#x2F;conf.d&#x2F;&#x2F;etc&#x2F;mysql&#x2F;mysql.conf.d&#x2F;- TCP&#x2F;3306 端口 - TCP&#x2F;3306 是 MySQL 服务器的默认网络端口，出于安全考虑，它绑定在 127.0.0.1 上，可以更改这个设置，之后就可以通过在 &#x2F;run&#x2F;mysqld&#x2F; 目录下设置的 localhost 套接字来访问 MySQL 服务器。</li>
+</ul>
+</blockquote>
+<h2 id="第-4-步-加强-MySQL-8-服务器的安全性"><a href="#第-4-步-加强-MySQL-8-服务器的安全性" class="headerlink" title="第 4 步 - 加强 MySQL 8 服务器的安全性"></a><strong>第 4 步 - 加强 MySQL 8 服务器的安全性</strong></h2><p>默认情况下，服务器没有密码，且其他设置也需要调整。让我们运行以下命令来进行设置并加强服务器的安全性：sudo mysql_secure_installation</p>
+<p><img src="/2024-01-19-ubuntu-install-mysql/img5.webp" alt="设置mysql安全性"></p>
+<h2 id="第-5-步-设置-MySQL-服务器开机自启"><a href="#第-5-步-设置-MySQL-服务器开机自启" class="headerlink" title="第 5 步 - 设置 MySQL 服务器开机自启"></a><strong>第 5 步 - 设置 MySQL 服务器开机自启</strong></h2><p>确保 MySQL 服务器 8 在系统启动时能自动启动，可以使用 systemctl 命令来实现：<br>sudo systemctl is-enabled mysql.service<br>如果尚未启用，使用以下命令来启用服务器：<br>sudo systemctl enable mysql.service<br>在 Ubuntu Linux 20.04 LTS 上，通过以下 systemctl 命令来检查 MySQL 8 服务器的状态：<br>sudo systemctl status mysql.service</p>
+<p><img src="/2024-01-19-ubuntu-install-mysql/img6.webp" alt="检查mysql服务状态"></p>
+<h2 id="第-6-步-启动-停止-重启-MySQL-服务器"><a href="#第-6-步-启动-停止-重启-MySQL-服务器" class="headerlink" title="第 6 步 - 启动&#x2F;停止&#x2F;重启 MySQL 服务器"></a><strong>第 6 步 - 启动&#x2F;停止&#x2F;重启 MySQL 服务器</strong></h2><p>我们可以通过命令行在 Ubuntu 22.04 LTS 上控制 MySQL 服务器。如果服务器尚未运行，让我们先启动它：sudo systemctl start mysql.service</p>
+<p>要停止 MySQL 服务器，请输入：sudo systemctl stop mysql.service</p>
+<p>按照下面的方式来重启 MySQL 服务器：sudo systemctl restart mysql.service</p>
+<p>我们还可以使用 journalctl 命令来查看 MySQL 服务的日志记录，方法如下：<br>sudo journalctl -u mysql.service -xe</p>
+<h2 id="第-7-步-登录-MySQL-8-服务器进行测试"><a href="#第-7-步-登录-MySQL-8-服务器进行测试" class="headerlink" title="第 7 步 - 登录 MySQL 8 服务器进行测试"></a><strong>第 7 步 - 登录 MySQL 8 服务器进行测试</strong></h2><p>到目前为止，我们已经学习了如何在 Ubuntu 22.04 LTS 上安装、配置、加固安全性以及启动&#x2F;停止 MySQL 服务器版本 8。接下来，是时候以 root（MySQL 管理员）用户身份登录了。登录语法如下：mysql -hlocalhost -uroot -p ，紧接着命令行会提示输入密码，回车即可进入。</p>
+<p><img src="/2024-01-19-ubuntu-install-mysql/img7.webp" alt="登录mysql"></p>
+<h2 id="第-8-步-配置-MySQL-8-服务器"><a href="#第-8-步-配置-MySQL-8-服务器" class="headerlink" title="第 8 步 - 配置 MySQL 8 服务器"></a><strong>第 8 步 - 配置 MySQL 8 服务器</strong></h2><p>使用文本编辑器编辑 &#x2F;etc&#x2F;mysql&#x2F;mysql.conf.d&#x2F;mysqld.cnf 文件，设置字符集编码，慢sql，binlog等。</p>
+<p><img src="/2024-01-19-ubuntu-install-mysql/img8.webp" alt="配置mysql"></p>
+<h2 id="第9步-通过DataGrip连接MySQL"><a href="#第9步-通过DataGrip连接MySQL" class="headerlink" title="第9步 - 通过DataGrip连接MySQL"></a>第9步 - 通过DataGrip连接MySQL</h2><p>相信很多同学在服务器上安装完MySQL后，就直接开放了服务器的3306端口，为了让数据库管理工具可以直连。但是这个做法很危险，现在互联网上存在着大量机器人，无时无刻在扫大家服务器的3306端口，再恰巧你的数据库账户密码都很简单（root&#x2F;admin），那么有一天当你登录数据库后就会发现被人清空了，惊不惊喜，所以这里我教大家一种更安全的连接数据库的方式。</p>
+<h3 id="安装DataGrip"><a href="#安装DataGrip" class="headerlink" title="安装DataGrip"></a>安装DataGrip</h3><p>去<span class="exturl" data-url="aHR0cHM6Ly93d3cuamV0YnJhaW5zLmNvbS9kYXRhZ3JpcC8=">Jetbrains官网下载<i class="fa fa-external-link-alt"></i></span>安装这个软件，如果能力允许可以支持一下正版</p>
+<h3 id="配置ssh-key"><a href="#配置ssh-key" class="headerlink" title="配置ssh-key"></a>配置ssh-key</h3><p>添加Data Source，选择SSH方式连接</p>
+<p><img src="/2024-01-19-ubuntu-install-mysql/img9.webp" alt="添加Data Source"><br><img src="/2024-01-19-ubuntu-install-mysql/img10.webp" alt="添加SSH配置"></p>
+<h3 id="添加MySQL连接"><a href="#添加MySQL连接" class="headerlink" title="添加MySQL连接"></a>添加MySQL连接</h3><p>返回Data Source页面，这里注意Host要填localhost，而不是服务器的ip地址，因为我们是通过SSH连接的，相当于在服务器本地用命令行连接数据库。最后输入用户名密码，测试连接是否正常。</p>
+<p><img src="/2024-01-19-ubuntu-install-mysql/img11.webp" alt="连接数据库"><br>大功告成。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024-01-08-notion-reminder-sync-guide.html" rel="prev" title="iOS提醒事项和Notion双向同步教程">
+                  <i class="fa fa-angle-left"></i> iOS提醒事项和Notion双向同步教程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024-01-29-openai-new-embedding-model.html" rel="next" title="OpenAI - 新的嵌入式模型和API更新">
+                  OpenAI - 新的嵌入式模型和API更新 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments disqusjs-container">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><span class="exturl" data-url="aHR0cHM6Ly9iZWlhbi5taWl0Lmdvdi5jbg==">浙ICP备2023031828号 </span>
+  </div>
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">别处理</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">122k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9tdXNlLw==">NexT.Muse</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/disqusjs/3.0.2/styles/disqusjs.css" integrity="sha256-71XarXwNr1Td27HmZI9zjY+rMzRdush6/glo6VFXp7o=" crossorigin="anonymous">
+
+<script class="next-config" data-name="disqusjs" type="application/json">{"enable":true,"api":"https://disqus.com/api/3.0/","apikey":"YJgyNSl14mmANcVTF2n4j8sr3R0eBKsw8R0kcgDzprIJ2ahQ9O4d6H6KX9Bunzt4","shortname":"blog-gd5hg0lukx","count":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/disqusjs/3.0.2/disqusjs.es2015.umd.min.js","integrity":"sha256-okP99ZQKVpIy7+NogAMpGlIQzJa9XKXhIJcFgdju5bU="}}</script>
+<script src="/js/third-party/comments/disqusjs.js"></script>
+
+</body>
+</html>

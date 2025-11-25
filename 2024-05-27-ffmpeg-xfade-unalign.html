@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="msvalidate.01" content="FDEF7F052E48D8D1B8136A8B3DF8AF9B">
+  <meta name="baidu-site-verification" content="codeva-KVoPqmDeib">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.zshnb.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":true,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"valine":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最近在做图片拼接视频的项目时，需要实现一个功能：在每张图片中间加滑入滑出的过渡效果。ffmpeg有一个xfade的filter，支持slideleft&#x2F;slideright等过渡效果（在这可以看到所有过渡效果的动图）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ffmpeg使用xfade滤镜滑入滑出时间对不齐的问题">
+<meta property="og:url" content="https://blog.zshnb.com/2024-05-27-ffmpeg-xfade-unalign.html">
+<meta property="og:site_name" content="编程随想">
+<meta property="og:description" content="最近在做图片拼接视频的项目时，需要实现一个功能：在每张图片中间加滑入滑出的过渡效果。ffmpeg有一个xfade的filter，支持slideleft&#x2F;slideright等过渡效果（在这可以看到所有过渡效果的动图）。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-27T05:57:41.000Z">
+<meta property="article:modified_time" content="2025-11-25T11:20:45.576Z">
+<meta property="article:author" content="别处理">
+<meta property="article:tag" content="Ffmpeg">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.zshnb.com/2024-05-27-ffmpeg-xfade-unalign.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.zshnb.com/2024-05-27-ffmpeg-xfade-unalign.html","path":"2024-05-27-ffmpeg-xfade-unalign.html","title":"ffmpeg使用xfade滤镜滑入滑出时间对不齐的问题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ffmpeg使用xfade滤镜滑入滑出时间对不齐的问题 | 编程随想</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-XXXXXXXX-X","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5129204676047532"
+     crossorigin="anonymous"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1VGXEM5CZ4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1VGXEM5CZ4');
+</script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">编程随想</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3"><span class="nav-number">2.</span> <span class="nav-text">解决</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">别处理</p>
+  <div class="site-description" itemprop="description">编程随想</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3pzaG5i" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zshnb"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS96aGVuZ3NpaHVhX2Rldg==" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;zhengsihua_dev"><i class="fab fa-twitter fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmE4NTc2ODE2NjRAZ21haWwuY29t" title="E-Mail → mailto:a857681664@gmail.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5129204676047532"
+     crossorigin="anonymous"></script>
+<!-- 侧边栏 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5129204676047532"
+     data-ad-slot="2108142251"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.zshnb.com/2024-05-27-ffmpeg-xfade-unalign.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="别处理">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="编程随想">
+      <meta itemprop="description" content="编程随想">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ffmpeg使用xfade滤镜滑入滑出时间对不齐的问题 | 编程随想">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ffmpeg使用xfade滤镜滑入滑出时间对不齐的问题
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-05-27 13:57:41" itemprop="dateCreated datePublished" datetime="2024-05-27T13:57:41+08:00">2024-05-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-11-25 19:20:45" itemprop="dateModified" datetime="2025-11-25T19:20:45+08:00">2025-11-25</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5129204676047532"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-5129204676047532"
+     data-ad-slot="3784186005"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script><p>最近在做图片拼接视频的项目时，需要实现一个功能：在每张图片中间加滑入滑出的过渡效果。ffmpeg有一个<span class="exturl" data-url="aHR0cHM6Ly9mZm1wZWcub3JnL2ZmbXBlZy1maWx0ZXJzLmh0bWwjeGZhZGU=">xfade<i class="fa fa-external-link-alt"></i></span>的filter，支持slideleft&#x2F;slideright等过渡效果（<span class="exturl" data-url="aHR0cHM6Ly90cmFjLmZmbXBlZy5vcmcvd2lraS9YZmFkZQ==">在这<i class="fa fa-external-link-alt"></i></span>可以看到所有过渡效果的动图）。</p>
+<span id="more"></span>
+<p>最开始我尝试使用fade的filter格式应用xfade，类似<code>-filter_complex “zoompan=xxxx,xfade=xxxx”</code> 这个命令直接就报错了，搜了一下xfade的语法才知道xfade是需要输入两个视频流，然后输出一个视频流。于是改成了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -t 8.34 -i ./tmp/R70NOq/script_1_image_20240326_211935.png -t 10.219999999999999 -i ./tmp/R70NOq/script_2_image_20240326_211958.png -t 10.46 -i ./tmp/R70NOq/script_3_image_20240326_212013.png -t 8.360000000000003 -i ./tmp/R70NOq/script_4_image_20240326_212028.png -t 8.799999999999997 -i ./tmp/R70NOq/script_5_image_20240326_212045.png -t 8.380000000000003 -i ./tmp/R70NOq/script_6_image_20240326_212059.png -i ./tmp/R70NOq/input.mp3 -filter_complex &quot;[0:v]scale=8000x4000,zoompan=z=&#x27;min(zoom+0.0015,1.5)&#x27;:x=&#x27;x-10&#x27;:y=&#x27;y&#x27;:d=209[v0];[1:v]scale=8000x4000,zoompan=z=&#x27;min(zoom+0.0015,1.5)&#x27;:x=&#x27;x+10&#x27;:y=&#x27;y&#x27;:d=255[v1];[2:v]scale=8000x4000,zoompan=z=&#x27;min(zoom+0.0015,1.5)&#x27;:y=&#x27;if(gte(ih,y),ih,y)-10&#x27;:x=&#x27;x&#x27;:d=264[v2];[3:v]scale=8000x4000,zoompan=z=&#x27;min(zoom+0.0015,1.5)&#x27;:y=&#x27;y+10&#x27;:x=&#x27;x&#x27;:d=209[v3];[4:v]scale=8000x4000,zoompan=z=&#x27;min(zoom+0.0015,1.5)&#x27;:x=&#x27;x-10&#x27;:y=&#x27;y&#x27;:d=220[v4];[5:v]scale=8000x4000,zoompan=z=&#x27;min(zoom+0.0015,1.5)&#x27;:x=&#x27;x+10&#x27;:y=&#x27;y&#x27;:d=210[v5];[v0][v1]xfade=transition=slideleft:duration=0.5:offset=7.84[x0];[v1][v2]xfade=transition=slideleft:duration=0.5:offset=17.55[x1];[v2][v3]xfade=transition=slideleft:duration=0.5:offset=27.51[x2];[v3][v4]xfade=transition=slideleft:duration=0.5:offset=34.38[x3];[v4][v5]xfade=transition=slideleft:duration=0.5:offset=42.68,format=yuv420p[v]&quot; -map &quot;[v]&quot; -map 6 -s 1024x1792 ./tmp/R70NOq/concat2.mp4</span><br></pre></td></tr></table></figure>
+
+
+<p>这个命令会报错“invalid stream label v1”，搜索了一下找到一个<span class="exturl" data-url="aHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvNjUwNzIzNTUvZmZtcGVnLWludmFsaWQtc3RyZWFtLXNwZWNpZmllci1zaQ==">回答<i class="fa fa-external-link-alt"></i></span>解释说在ffmpeg的filter里，中间阶段的流是不能复用的，一种解决方案是用split把一个流拆成两个同样的流供后面使用，我选择了另一种解决方案，把前一个xfade的输出流和原始输入流作为后一个xfade的输入流，命令如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -t 8.34 -i ./tmp/R70NOq/script_1_image_20240326_211935.png -t 10.219999999999999 -i ./tmp/R70NOq/script_2_image_20240326_211958.png -t 10.46 -i ./tmp/R70NOq/script_3_image_20240326_212013.png -t 8.360000000000003 -i ./tmp/R70NOq/script_4_image_20240326_212028.png -t 8.799999999999997 -i ./tmp/R70NOq/script_5_image_20240326_212045.png -t 8.380000000000003 -i ./tmp/R70NOq/script_6_image_20240326_212059.png -i ./tmp/R70NOq/input.mp3 -filter_complex &quot;[0:v]scale=8000x4000,zoompan=z=&#x27;min(zoom+0.0015,1.5)&#x27;:x=&#x27;x-10&#x27;:y=&#x27;y&#x27;:d=209[v0];[1:v]scale=8000x4000,zoompan=z=&#x27;min(zoom+0.0015,1.5)&#x27;:x=&#x27;x+10&#x27;:y=&#x27;y&#x27;:d=255[v1];[2:v]scale=8000x4000,zoompan=z=&#x27;min(zoom+0.0015,1.5)&#x27;:y=&#x27;if(gte(ih,y),ih,y)-10&#x27;:x=&#x27;x&#x27;:d=264[v2];[3:v]scale=8000x4000,zoompan=z=&#x27;min(zoom+0.0015,1.5)&#x27;:y=&#x27;y+10&#x27;:x=&#x27;x&#x27;:d=209[v3];[4:v]scale=8000x4000,zoompan=z=&#x27;min(zoom+0.0015,1.5)&#x27;:x=&#x27;x-10&#x27;:y=&#x27;y&#x27;:d=220[v4];[5:v]scale=8000x4000,zoompan=z=&#x27;min(zoom+0.0015,1.5)&#x27;:x=&#x27;x+10&#x27;:y=&#x27;y&#x27;:d=210[v5];[v0][v1]xfade=transition=slideleft:duration=0.5:offset=7.84[x0];[x0][v2]xfade=transition=slideleft:duration=0.5:offset=17.55[x1];[x1][v3]xfade=transition=slideleft:duration=0.5:offset=27.51[x2];[x2][v4]xfade=transition=slideleft:duration=0.5:offset=34.38[x3];[x3][v5]xfade=transition=slideleft:duration=0.5:offset=42.68,format=yuv420p[v]&quot; -map &quot;[v]&quot; -map 6 -s 1024x1792 ./tmp/R70NOq/concat2.mp4</span><br></pre></td></tr></table></figure>
+
+<p>可以看到v0和v1作为第一个xfade的输入产生了x0，接着x0和v2输入产生了x1，以此类推。</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>上面的命令生成的视频是可以播放的，但是有一个问题，图片切换的时间点和预期的不一样，期望图片是在指定字幕结束的时间切换，但结果是越后面图片切换的时间点越提前了。这里先给出xfade的offset计算公式：</p>
+<table>
+<thead>
+<tr>
+<th><strong>input</strong></th>
+<th><strong>input duration</strong></th>
+<th>+</th>
+<th><strong>previous xfade offset</strong></th>
+<th>-</th>
+<th><strong>xfade duration</strong></th>
+<th><strong>offset&#x3D;</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>v0.mp4</code></td>
+<td>4</td>
+<td>+</td>
+<td>0</td>
+<td>-</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr>
+<td><code>v1.mp4</code></td>
+<td>8</td>
+<td>+</td>
+<td>3</td>
+<td>-</td>
+<td>1</td>
+<td>10</td>
+</tr>
+<tr>
+<td><code>v2.mp4</code></td>
+<td>12</td>
+<td>+</td>
+<td>10</td>
+<td>-</td>
+<td>1</td>
+<td>21</td>
+</tr>
+<tr>
+<td><code>v3.mp4</code></td>
+<td>5</td>
+<td>+</td>
+<td>21</td>
+<td>-</td>
+<td>1</td>
+<td>25</td>
+</tr>
+</tbody></table>
+<p>可以看出xfade的计算方式，会导致越后面的片段，offset越提前，如果强行延后offset，会导致剪辑出来的视频出现黑屏，因为xfade要求输入的两个视频流，offset加上duration不能大于第一个视频流的长度。</p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>在没有应用xfade时，输入图片的时长都是根据音频字幕的开始结束时间计算出来的。由于xfade的offset会隐性改变输入源的时长，为了让结果视频图片能对的上字幕时间，我们可以手动延长输入源图片的时长，比如第一张图片原本时长在8s，希望在8s结束时出现slideleft，如果直接设置offset&#x3D;8s会黑屏，所以我们增加图片时长到8.5s，然后设置offset&#x3D;5:duration&#x3D;0.5，后面的图片以此类推，这样就能完美让xfade匹配上图片的切换时间。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Ffmpeg/" rel="tag"><i class="fa fa-tag"></i> Ffmpeg</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024-05-21-ffmpeg-extract-frame-with-file.html" rel="prev" title="ffmpeg对视频抽帧时让结果图片文件名带上时间戳">
+                  <i class="fa fa-angle-left"></i> ffmpeg对视频抽帧时让结果图片文件名带上时间戳
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024-05-29-gaode-sync-favorite.html" rel="next" title="iOS同步高德地图收藏夹到Notion">
+                  iOS同步高德地图收藏夹到Notion <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments disqusjs-container">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><span class="exturl" data-url="aHR0cHM6Ly9iZWlhbi5taWl0Lmdvdi5jbg==">浙ICP备2023031828号 </span>
+  </div>
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">别处理</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">122k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9tdXNlLw==">NexT.Muse</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/disqusjs/3.0.2/styles/disqusjs.css" integrity="sha256-71XarXwNr1Td27HmZI9zjY+rMzRdush6/glo6VFXp7o=" crossorigin="anonymous">
+
+<script class="next-config" data-name="disqusjs" type="application/json">{"enable":true,"api":"https://disqus.com/api/3.0/","apikey":"YJgyNSl14mmANcVTF2n4j8sr3R0eBKsw8R0kcgDzprIJ2ahQ9O4d6H6KX9Bunzt4","shortname":"blog-gd5hg0lukx","count":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/disqusjs/3.0.2/disqusjs.es2015.umd.min.js","integrity":"sha256-okP99ZQKVpIy7+NogAMpGlIQzJa9XKXhIJcFgdju5bU="}}</script>
+<script src="/js/third-party/comments/disqusjs.js"></script>
+
+</body>
+</html>

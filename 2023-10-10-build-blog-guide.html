@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="msvalidate.01" content="FDEF7F052E48D8D1B8136A8B3DF8AF9B">
+  <meta name="baidu-site-verification" content="codeva-KVoPqmDeib">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.zshnb.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":true,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"valine":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="背景目前我个人的博客是托管在Github Pages下，用的也是Github提供的免费域名，但每个程序员都有个梦想，就是有一个属于自己的博客。于是就决定趁着这段时间不忙，把Github Pages上的博客迁移到自己的服务器上，同时把这个过程记录下来，也能帮助到想要拥有自己博客的人。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo博客搭建指南">
+<meta property="og:url" content="https://blog.zshnb.com/2023-10-10-build-blog-guide.html">
+<meta property="og:site_name" content="编程随想">
+<meta property="og:description" content="背景目前我个人的博客是托管在Github Pages下，用的也是Github提供的免费域名，但每个程序员都有个梦想，就是有一个属于自己的博客。于是就决定趁着这段时间不忙，把Github Pages上的博客迁移到自己的服务器上，同时把这个过程记录下来，也能帮助到想要拥有自己博客的人。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.zshnb.com/2023-10-10-build-blog-guide/img1.png">
+<meta property="og:image" content="https://blog.zshnb.com/2023-10-10-build-blog-guide/img3.png">
+<meta property="og:image" content="https://blog.zshnb.com/2023-10-10-build-blog-guide/img4.png">
+<meta property="og:image" content="https://blog.zshnb.com/2023-10-10-build-blog-guide/img2.png">
+<meta property="og:image" content="https://blog.zshnb.com/2023-10-10-build-blog-guide/img5.png">
+<meta property="article:published_time" content="2023-10-10T10:14:10.000Z">
+<meta property="article:modified_time" content="2025-11-25T11:20:45.489Z">
+<meta property="article:author" content="别处理">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.zshnb.com/2023-10-10-build-blog-guide/img1.png">
+
+
+<link rel="canonical" href="https://blog.zshnb.com/2023-10-10-build-blog-guide.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.zshnb.com/2023-10-10-build-blog-guide.html","path":"2023-10-10-build-blog-guide.html","title":"Hexo博客搭建指南"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Hexo博客搭建指南 | 编程随想</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-XXXXXXXX-X","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5129204676047532"
+     crossorigin="anonymous"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1VGXEM5CZ4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1VGXEM5CZ4');
+</script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">编程随想</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%E6%B8%85%E5%8D%95"><span class="nav-number">2.</span> <span class="nav-text">需求清单</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%9A%E5%AE%A2%E4%BB%93%E5%BA%93"><span class="nav-number">3.</span> <span class="nav-text">博客仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">3.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE"><span class="nav-number">3.2.</span> <span class="nav-text">基础配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE"><span class="nav-number">3.3.</span> <span class="nav-text">主题配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SEO%E9%85%8D%E7%BD%AE"><span class="nav-number">3.4.</span> <span class="nav-text">SEO配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.5.</span> <span class="nav-text">评论系统</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8A%E7%BA%BF"><span class="nav-number">4.</span> <span class="nav-text">上线</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">4.1.</span> <span class="nav-text">云服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%9F%E5%90%8D"><span class="nav-number">4.2.</span> <span class="nav-text">域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2"><span class="nav-number">4.3.</span> <span class="nav-text">部署</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%87%E6%A1%88"><span class="nav-number">5.</span> <span class="nav-text">备案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96"><span class="nav-number">6.</span> <span class="nav-text">自动化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">别处理</p>
+  <div class="site-description" itemprop="description">编程随想</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3pzaG5i" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zshnb"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS96aGVuZ3NpaHVhX2Rldg==" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;zhengsihua_dev"><i class="fab fa-twitter fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmE4NTc2ODE2NjRAZ21haWwuY29t" title="E-Mail → mailto:a857681664@gmail.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5129204676047532"
+     crossorigin="anonymous"></script>
+<!-- 侧边栏 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5129204676047532"
+     data-ad-slot="2108142251"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.zshnb.com/2023-10-10-build-blog-guide.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="别处理">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="编程随想">
+      <meta itemprop="description" content="编程随想">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Hexo博客搭建指南 | 编程随想">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo博客搭建指南
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-10-10 18:14:10" itemprop="dateCreated datePublished" datetime="2023-10-10T18:14:10+08:00">2023-10-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-11-25 19:20:45" itemprop="dateModified" datetime="2025-11-25T19:20:45+08:00">2025-11-25</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5129204676047532"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-5129204676047532"
+     data-ad-slot="3784186005"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script><h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>目前我个人的博客是托管在Github Pages下，用的也是Github提供的免费域名，但每个程序员都有个梦想，就是有一个属于自己的博客。<br>于是就决定趁着这段时间不忙，把Github Pages上的博客迁移到自己的服务器上，同时把这个过程记录下来，也能帮助到想要拥有自己博客的人。</p>
+<span id="more"></span>
+<h1 id="需求清单"><a href="#需求清单" class="headerlink" title="需求清单"></a>需求清单</h1><p>这里先简单陈列一下，搭建一个个人博客所需要的所有东西</p>
+<ol>
+<li>云服务器，用于运行博客网站</li>
+<li>域名，用于用户可以方便地访问你的博客，你也不想访问别人网站的时候，还要记住毫无规律的IP吧</li>
+<li>备案（可选），如果服务器在大陆，那么这个是逃不了的，没有备案分分钟网站关停</li>
+<li>Github账号，用于存储博客</li>
+</ol>
+<p>接下来按照优先等级一个个详细介绍</p>
+<h1 id="博客仓库"><a href="#博客仓库" class="headerlink" title="博客仓库"></a>博客仓库</h1><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>第一步我们先要有一个博客仓库，用来储存所有的文章，这里我选择的是<span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvLw==">Hexo博客框架<i class="fa fa-external-link-alt"></i></span>，是最近比较热门的博客框架。Hexo可以选择网站的主题，<br>这里我选择的是<span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9kb2NzL2dldHRpbmctc3RhcnRlZC8=">nexT主题<i class="fa fa-external-link-alt"></i></span>，也是Hexo框架里非常热门的主题。<br>按照Hexo文档里的提示，我们执行</p>
+<ol>
+<li><code>npm install -g hexo-cli</code>，安装hexo命令行工具。注意Hexo要求系统已经安装Node.js和Git，如果没有安装过，<br>可以移步各自的官方文档进行安装。</li>
+<li>接着执行<code>hexo init xxx-blog</code>，生成hexo项目</li>
+<li><code>cd xxx-blog &amp;&amp; npm install</code>，然后用任意编辑器打开xxx-blog文件夹，你会看到这样的目录<img src="/2023-10-10-build-blog-guide/img1.png">，说明博客仓库初始化成功了</li>
+<li><code>hexo s</code>，看到控制台打印的<img src="/2023-10-10-build-blog-guide/img3.png">，说明博客运行成功了，访问localhost:4000就能看到博客页面了</li>
+<li><code>hexo g &amp;&amp; hexo d</code>，部署博客到Github仓库，这里hexo会把生成的静态文件push到另一个分支，默认是gh-pages，因此我们需要分清楚，<br>hexo的main分支是存放我们的md文章，以及hexo的配置，gh-pages分支是存放hexo generate后的html等静态文件，用于页面展示的。</li>
+</ol>
+<h2 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h2><p>接着需要对hexo进行一些配置，hexo的配置文件在.&#x2F;_config.yml，下面列举几个比较重要的配置，其他配置都可以参考官方文档</p>
+<ol>
+<li><span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3MvY29uZmlndXJhdGlvbiNTaXRl">网站基础信息配置<i class="fa fa-external-link-alt"></i></span>，这里需要配置网站标题，作者等信息</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3MvYXNzZXQtZm9sZGVycw==">静态资源配置<i class="fa fa-external-link-alt"></i></span>，这里配置文章里引用的图片</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3Mvb25lLWNvbW1hbmQtZGVwbG95bWVudA==">Git部署配置<i class="fa fa-external-link-alt"></i></span>，这里配置博客部署发布的Git信息<br>如果需要 <strong>标签(tags)<strong>、</strong>关于(about)<strong>、</strong>搜索(search)</strong> 页面，需要在source下面新建文件夹，然后新建index.md文件，以标签为例子<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">// 路径：./source/tags/index.md</span></span><br><span class="line"><span class="section">---</span></span><br><span class="line">title: tags</span><br><span class="line">date: 2023-09-13 15:35:31</span><br><span class="line"><span class="section">type: tags</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="主题配置"><a href="#主题配置" class="headerlink" title="主题配置"></a>主题配置</h2><p>nexT官方推荐的配置文件是.&#x2F;config.next.yml，如果懒得看官方文档，可以直接使用我这份<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3pzaG5iL2Jsb2cvYmxvYi9tYWluL19jb25maWcubmV4dC55bWw=">配置文件<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="SEO配置"><a href="#SEO配置" class="headerlink" title="SEO配置"></a>SEO配置</h2><p>参考<span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9kb2NzL3RoZW1lLXNldHRpbmdzL3Nlbw==">官方文档<i class="fa fa-external-link-alt"></i></span>进行基础配置，接着配置各个搜索引擎的收录，这方面的资料很多，可以参考<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmp1YW5lcnR1LmNvbS9hcmNoaXZlcy85MDEzYzhkOA==">这篇<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="评论系统"><a href="#评论系统" class="headerlink" title="评论系统"></a>评论系统</h2><p>最开始打算用valine，毕竟是nexT主题用的最多的评论系统之一，但在nexT官方<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL25leHQtdGhlbWUvaGV4by10aGVtZS1uZXh0L2lzc3Vlcy80">issue<i class="fa fa-external-link-alt"></i></span>下<br>提到由于valine不再开源，于是他们决定在8.1.0版本中移除valine的默认支持。所以我就把评论系统换成了disqus，可惜disqus被墙了，<br>所以最终换成了disqusjs，通过disqus api的方式接入disqus评论。</p>
+<h1 id="上线"><a href="#上线" class="headerlink" title="上线"></a>上线</h1><p>有了博客仓库后，接下来要做的事就是把网站上线到互联网，让大家访问了</p>
+<h2 id="云服务器"><a href="#云服务器" class="headerlink" title="云服务器"></a>云服务器</h2><p>国内可以选购腾讯云，阿里云，华为云等，一般博客不需要很好的配置，1核2G足以，这里我用的是腾讯云。购买成功后，需要将自己的ssh 公钥加进服务器里。<br>本地公钥文件在~&#x2F;.ssh&#x2F;id_rsa.pub里，然后在腾讯云云服务器里绑定<br><img src="/2023-10-10-build-blog-guide/img4.png" alt="绑定公钥"><br>创建成功后在密钥列表里选择刚才创建的密钥，绑定服务器即可</p>
+<h2 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h2><p>最好在你购买的云服务器厂商里注册，绑定解析什么的比较方便，后缀推荐.com|.org，最好不要选择.cn，注册好之后在域名服务商里添加解析<br><img src="/2023-10-10-build-blog-guide/img2.png" alt="域名"></p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>通过ssh登录服务器后</p>
+<ol>
+<li>首先安装nginx<code>sudo apt update &amp;&amp; sudo apt install nginx</code><br>接着启动nginx<code>sudo systemctl start nginx &amp;&amp; sudo systemctl enable nginx</code>。nginx的配置文件在&#x2F;etc&#x2F;nginx下</li>
+<li>配置https证书，这里我们使用免费的<span class="exturl" data-url="aHR0cHM6Ly9jZXJ0Ym90LmVmZi5vcmcvaW5zdHJ1Y3Rpb25zP3dzPW5naW54Jm9zPXVidW50dWZvY2Fs">Let’s encrypt<i class="fa fa-external-link-alt"></i></span>，注意如果在这个步骤遇到了域名无法访问的问题，请先往下解决备案后，再回来生成证书。<br>按照Let’s encrypt的教程生成证书后，会自动在nginx&#x2F;sites-available目录下创建以域名为名称的配置文件，如下 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line"></span><br><span class="line">    server_name blog.zshnb.com;</span><br><span class="line"></span><br><span class="line">    root /home/ubuntu/blog;</span><br><span class="line">    index index.html;</span><br><span class="line">    location ~* ^.+\.(jpg|jpeg|gif|png|ico|css|js|pdf|txt)&#123;</span><br><span class="line">            root /home/ubuntu/blog;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    listen [::]:443 ssl; # managed by Certbot</span><br><span class="line">    listen 443 ssl; # managed by Certbot</span><br><span class="line">    ssl_certificate /etc/letsencrypt/live/blog.zshnb.com/fullchain.pem; # managed by Certbot</span><br><span class="line">    ssl_certificate_key /etc/letsencrypt/live/blog.zshnb.com/privkey.pem; # managed by Certbot</span><br><span class="line">    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot</span><br><span class="line">    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    if ($host = blog.zshnb.com) &#123;</span><br><span class="line">        return 301 https://$host$request_uri;</span><br><span class="line">    &#125; # managed by Certbot</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    listen 80;</span><br><span class="line">    listen [::]:80;</span><br><span class="line"></span><br><span class="line">    server_name blog.zshnb.com;</span><br><span class="line">    return 404; # managed by Certbot</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ 配置完毕后执行<code>sudo nginx -s reload</code></li>
+<li>在服务器个人目录下拉取博客仓库，切换到gh-pages分支，然后便可以访问博客首页了，这里如果域名还未生效，可以通过访问ip的形式查看。</li>
+</ol>
+<h1 id="备案"><a href="#备案" class="headerlink" title="备案"></a>备案</h1><p>因为众所周知的原因，部署在国内服务器的网站，想要合法公开，必须经过工信部备案，如果部署在海外的服务器，可以跳过这一步</p>
+<ol>
+<li>云服务厂商备案，这里我以腾讯云为例子，你也可以根据自己购买的云服务厂商说明来做。<br>首先登录腾讯云，进入<span class="exturl" data-url="aHR0cHM6Ly9jb25zb2xlLmNsb3VkLnRlbmNlbnQuY29tL2JlaWFu">备案页面<i class="fa fa-external-link-alt"></i></span>，点击新增服务，填写好页面要求的信息，这里注意几个点，<ol>
+<li>网站标题不要包含博客，个人姓名，容易过不了审核</li>
+<li>在审核期间把服务器关了<br>腾讯云的审核大概1天就会通过，通过后会提交工信部管局审核，大约需要5个工作日，备案成功后会在腾讯云的备案里看到备案号，后面会用到</li>
+</ol>
+</li>
+<li>公安局备案，登录<span class="exturl" data-url="aHR0cHM6Ly9iZWlhbi5tcHMuZ292LmNuLyMv">备案网站<i class="fa fa-external-link-alt"></i></span>，按照提示填写信息提交即可，备案成功后同样会有备案号</li>
+<li>在nexT配置里添加备案信息，<span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9kb2NzL3RoZW1lLXNldHRpbmdzL2Zvb3RlciNTaXRlLUJlaWFuLUluZm9ybWF0aW9u">参考文档<i class="fa fa-external-link-alt"></i></span></li>
+</ol>
+<h1 id="自动化"><a href="#自动化" class="headerlink" title="自动化"></a>自动化</h1><p>按照上面的步骤，在备案通过后，博客已经成功上线了，不过这里还存在一个问题，当我们发布新文章时，我们先要在本地写好文章，然后提交GitHub，然后本地执行<code>hexo g &amp;&amp; hexo d</code>，<br>然后ssh登录服务器，更新gh-pages，这样才能同步发布最新文章到线上，那么我们能不能把这个过程自动化呢？也就是要做到当我们提交文章到GitHub后，有什么办法能自动部署hexo，且自动更新服务器上<br>的gh-pages分支。答案当然是有的，这里我们用GitHub action来完成这一自动化过程。<br>大概的思路如下</p>
+<ol>
+<li>把仓库clone下来</li>
+<li>安装nodejs，进入仓库目录<code>npm install</code></li>
+<li>执行<code>hexo g &amp;&amp; hexo d</code></li>
+<li>ssh服务器，更新gh-pages分支</li>
+</ol>
+<p>这里我们需要准备一个新的ssh密钥对，用于action服务器提交GitHub和ssh服务器，一切准备完毕后，在根目录下新建.&#x2F;.github&#x2F;workflows&#x2F;deploy.yml，内容如下</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">blog</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">checkout</span> <span class="string">repo</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">prepare</span> <span class="string">node</span> <span class="string">env</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v1</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&quot;18.18.0&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">webfactory/ssh-agent@v0.7.0</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">ssh-private-key:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.SSH_PRIVATE_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">set</span> <span class="string">github</span> <span class="string">profile</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          git config --global user.name &#x27;zshnb&#x27;</span></span><br><span class="line"><span class="string">          git config --global user.email &#x27;a857681664@gmail.com&#x27;</span></span><br><span class="line"><span class="string"></span>      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          npm i -g hexo</span></span><br><span class="line"><span class="string">          npm i</span></span><br><span class="line"><span class="string">          hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span></span><br><span class="line"><span class="string"></span>      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">ssh</span> <span class="string">remove</span> <span class="string">server</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">appleboy/ssh-action@v1.0.0</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">host:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.SERVER_HOST</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">username:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.SERVER_USER</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">key:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.SSH_PRIVATE_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">port:</span> <span class="number">22</span></span><br><span class="line">          <span class="attr">script:</span> <span class="string">|</span></span><br><span class="line"><span class="string">            cd blog</span></span><br><span class="line"><span class="string">            git pull origin gh-pages --rebase</span></span><br><span class="line"><span class="string">            sudo nginx -s reload</span></span><br></pre></td></tr></table></figure>
+<p>action里用到的secrets在仓库的settings -&gt; secrets and variables -&gt; actions里添加<br><img src="/2023-10-10-build-blog-guide/img5.png" alt="action"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>至此一个个人博客就搭建完毕了，过程虽然比较多，但每个步骤都不算难，只是中间需要等待备案，比较磨人</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"><i class="fa fa-tag"></i> hexo</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023-08-05-compile-ffmpeg-with-CUDA-and-zscale-libplacebo.html" rel="prev" title="本地编译最新版本ffmpeg，支持CUDA和zscale、libplacebo">
+                  <i class="fa fa-angle-left"></i> 本地编译最新版本ffmpeg，支持CUDA和zscale、libplacebo
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023-10-23-Manjaro-chrome-proxy.html" rel="next" title="Manjaro谷歌浏览器设置代理">
+                  Manjaro谷歌浏览器设置代理 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments disqusjs-container">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><span class="exturl" data-url="aHR0cHM6Ly9iZWlhbi5taWl0Lmdvdi5jbg==">浙ICP备2023031828号 </span>
+  </div>
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">别处理</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">122k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9tdXNlLw==">NexT.Muse</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/disqusjs/3.0.2/styles/disqusjs.css" integrity="sha256-71XarXwNr1Td27HmZI9zjY+rMzRdush6/glo6VFXp7o=" crossorigin="anonymous">
+
+<script class="next-config" data-name="disqusjs" type="application/json">{"enable":true,"api":"https://disqus.com/api/3.0/","apikey":"YJgyNSl14mmANcVTF2n4j8sr3R0eBKsw8R0kcgDzprIJ2ahQ9O4d6H6KX9Bunzt4","shortname":"blog-gd5hg0lukx","count":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/disqusjs/3.0.2/disqusjs.es2015.umd.min.js","integrity":"sha256-okP99ZQKVpIy7+NogAMpGlIQzJa9XKXhIJcFgdju5bU="}}</script>
+<script src="/js/third-party/comments/disqusjs.js"></script>
+
+</body>
+</html>

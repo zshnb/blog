@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="msvalidate.01" content="FDEF7F052E48D8D1B8136A8B3DF8AF9B">
+  <meta name="baidu-site-verification" content="codeva-KVoPqmDeib">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.zshnb.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":true,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":{"valine":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="OpenAI最近发了一篇博客，主要介绍了他们最近发布的新模型，同时新模型还降低了API的价格，做到了加量的同时不加价，最后还给开发者们带来了官方的API密钥管理工具，很多开发者在此前都是在自己的应用里记录API的用量情况，现在也不需要了，直接登录OpenAI的后台就能看到。下面是博客的中文翻译版。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenAI - 新的嵌入式模型和API更新">
+<meta property="og:url" content="https://blog.zshnb.com/2024-01-29-openai-new-embedding-model.html">
+<meta property="og:site_name" content="编程随想">
+<meta property="og:description" content="OpenAI最近发了一篇博客，主要介绍了他们最近发布的新模型，同时新模型还降低了API的价格，做到了加量的同时不加价，最后还给开发者们带来了官方的API密钥管理工具，很多开发者在此前都是在自己的应用里记录API的用量情况，现在也不需要了，直接登录OpenAI的后台就能看到。下面是博客的中文翻译版。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.zshnb.com/2024-01-29-openai-new-embedding-model/img1.webp">
+<meta property="og:image" content="https://blog.zshnb.com/2024-01-29-openai-new-embedding-model/img2.webp">
+<meta property="article:published_time" content="2024-01-29T07:56:48.000Z">
+<meta property="article:modified_time" content="2025-11-25T11:20:45.538Z">
+<meta property="article:author" content="别处理">
+<meta property="article:tag" content="OpenAI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.zshnb.com/2024-01-29-openai-new-embedding-model/img1.webp">
+
+
+<link rel="canonical" href="https://blog.zshnb.com/2024-01-29-openai-new-embedding-model.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.zshnb.com/2024-01-29-openai-new-embedding-model.html","path":"2024-01-29-openai-new-embedding-model.html","title":"OpenAI - 新的嵌入式模型和API更新"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>OpenAI - 新的嵌入式模型和API更新 | 编程随想</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-XXXXXXXX-X","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5129204676047532"
+     crossorigin="anonymous"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1VGXEM5CZ4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1VGXEM5CZ4');
+</script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">编程随想</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E7%9A%84%E5%B5%8C%E5%85%A5%E5%BC%8F%E8%A1%A8%E7%A4%BA%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%9B%B4%E4%BD%8E%E7%9A%84%E4%BB%B7%E6%A0%BC"><span class="nav-number">1.</span> <span class="nav-text">新的嵌入式表示模型与更低的价格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%96%B0%E6%A8%A1%E5%9E%8B%E5%8F%8A%E6%9B%B4%E4%BD%8E%E4%BB%B7%E6%A0%BC"><span class="nav-number">2.</span> <span class="nav-text">其他新模型及更低价格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3-API-%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5%E5%92%8C%E7%AE%A1%E7%90%86-API-%E5%AF%86%E9%92%A5%E7%9A%84%E6%96%B0%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">了解 API 使用情况和管理 API 密钥的新方法</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">别处理</p>
+  <div class="site-description" itemprop="description">编程随想</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3pzaG5i" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zshnb"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS96aGVuZ3NpaHVhX2Rldg==" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;zhengsihua_dev"><i class="fab fa-twitter fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmE4NTc2ODE2NjRAZ21haWwuY29t" title="E-Mail → mailto:a857681664@gmail.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5129204676047532"
+     crossorigin="anonymous"></script>
+<!-- 侧边栏 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5129204676047532"
+     data-ad-slot="2108142251"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.zshnb.com/2024-01-29-openai-new-embedding-model.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="别处理">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="编程随想">
+      <meta itemprop="description" content="编程随想">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="OpenAI - 新的嵌入式模型和API更新 | 编程随想">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OpenAI - 新的嵌入式模型和API更新
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-01-29 15:56:48" itemprop="dateCreated datePublished" datetime="2024-01-29T15:56:48+08:00">2024-01-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-11-25 19:20:45" itemprop="dateModified" datetime="2025-11-25T19:20:45+08:00">2025-11-25</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5129204676047532"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-5129204676047532"
+     data-ad-slot="3784186005"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script><p>OpenAI最近发了一篇<span class="exturl" data-url="aHR0cHM6Ly9vcGVuYWkuY29tL2Jsb2cvbmV3LWVtYmVkZGluZy1tb2RlbHMtYW5kLWFwaS11cGRhdGVz">博客<i class="fa fa-external-link-alt"></i></span>，主要介绍了他们最近发布的新模型，同时新模型还降低了API的价格，做到了加量的同时不加价，最后还给开发者们带来了官方的API密钥管理工具，很多开发者在此前都是在自己的应用里记录API的用量情况，现在也不需要了，直接登录OpenAI的后台就能看到。下面是博客的中文翻译版。</p>
+<span id="more"></span>
+<p>我们正在推出新的模型，降低 GPT-3.5 Turbo 的价格，并为开发者提供新的 API 密钥管理和 API 使用情况理解方法。新推出的模型包括：</p>
+<ul>
+<li><p>两款新的嵌入式表示（Embedding）模型</p>
+</li>
+<li><p>更新后的 GPT-4 Turbo 预览模型</p>
+</li>
+<li><p>更新后的 GPT-3.5 Turbo 模型</p>
+</li>
+<li><p>更新后的文本审核模型</p>
+</li>
+</ul>
+<p>默认情况下，发送至 OpenAI API 的数据将不会用于训练或改善 OpenAI 模型。</p>
+<h2 id="新的嵌入式表示模型与更低的价格"><a href="#新的嵌入式表示模型与更低的价格" class="headerlink" title="新的嵌入式表示模型与更低的价格"></a><strong>新的嵌入式表示模型与更低的价格</strong></h2><p>我们推出了两款新的嵌入式表示模型：体积更小、效率更高的 <strong>text-embedding-3-small</strong> 模型，以及体积更大、性能更强的 <strong>text-embedding-3-large</strong> 模型。</p>
+<p>嵌入式表示是一组数字序列，它能代表自然语言或代码等内容中的概念。这种表示形式简化了机器学习模型和其他算法理解内容之间关系的难度，便于进行聚类或检索等任务。它们被广泛应用于 ChatGPT 和 Assistants API 的知识检索功能，以及许多检索增强生成（RAG）开发者工具中。</p>
+<p><img src="/2024-01-29-openai-new-embedding-model/img1.webp"><br><strong>全新的小型文本嵌入模型</strong></p>
+<p><strong>text-embedding-3-small</strong> 是我们全新推出的高效嵌入模型，性能大幅优于其前代 <strong>text-embedding-ada-002</strong> 模型（于 2022 年 12 月发布）。</p>
+<p><strong>性能更加强大。</strong> 将 <strong>text-embedding-ada-002</strong> 与 <strong>text-embedding-3-small</strong> 进行比较，我们发现在多语言检索的常用基准测试 MIRACL 上，平均得分从 31.4% 提升至 44.0%，而在英语任务的常用基准测试 MTEB 上，平均得分从 61.0% 提升至 62.3%。</p>
+<p><strong>价格大幅降低。</strong> <strong>text-embedding-3-small</strong> 在效率上远超前一代模型 <strong>text-embedding-ada-002</strong>。因此，其价格相较于前代模型降低了 5 倍，从每千 Token 的 $0.0001 降至 $0.00002。</p>
+<p>我们不会停用 <strong>text-embedding-ada-002</strong>，因此客户仍可选择继续使用旧版模型。</p>
+<p>一个全新的大型文本嵌入模型：<strong>text-embedding-3-large</strong></p>
+<p><strong>text-embedding-3-large</strong> 是我们推出的新一代大型嵌入模型，能够创建多达 3072 维的嵌入式表示。</p>
+<p><strong>性能显著提升。</strong> <strong>text-embedding-3-large</strong> 作为我们表现最佳的新模型，在 MIRACL 上的平均得分从 31.4% 提升至 54.9%，而在 MTEB 上的平均得分从 61.0% 提升至 64.6%。</p>
+<table>
+<thead>
+<tr>
+<th><strong>评估基准</strong></th>
+<th><strong>ada v2 版</strong></th>
+<th><strong>text-embedding-3-small</strong></th>
+<th><strong>text-embedding-3-large</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MIRACL 平均得分</td>
+<td>31.4</td>
+<td>44.0</td>
+<td>54.9</td>
+</tr>
+<tr>
+<td>MTEB 平均得分</td>
+<td>61.0</td>
+<td>62.3</td>
+<td>64.6</td>
+</tr>
+</tbody></table>
+<p><strong>text-embedding-3-large</strong> 的定价为每千 Token $0.00013。</p>
+<p>您可以在我们的 <span class="exturl" data-url="aHR0cHM6Ly9wbGF0Zm9ybS5vcGVuYWkuY29tL2RvY3MvZ3VpZGVzL2VtYmVkZGluZ3M=">嵌入式表示指南<i class="fa fa-external-link-alt"></i></span> 中了解更多有关使用新嵌入模型的信息。</p>
+<p><strong>对缩短嵌入式表示的原生支持</strong></p>
+<p>使用较大的嵌入式表示（例如，在向量存储中用于检索），通常比小型表示消耗更多的计算资源、内存和存储空间。</p>
+<p>我们的两款新嵌入模型均采用了一种技术，允许开发者在使用嵌入式表示时平衡性能和成本。具体来说，开发者可以通过调整 <strong>dimensions</strong> API 参数来缩短嵌入式表示的长度（即减少序列末端的数字），同时保持其表达概念的能力。例如，在 MTEB 基准测试上，缩短至 256 维的 <strong>text-embedding-3-large</strong> 嵌入式表示仍然能胜过 1536 维的未缩短 <strong>text-embedding-ada-002</strong> 嵌入。</p>
+<table>
+<thead>
+<tr>
+<th><strong>评估基准</strong></th>
+<th><strong>ada v2 版</strong></th>
+<th><strong>text-embedding-3-small</strong></th>
+<th><strong>text-embedding-3-small</strong></th>
+<th><strong>text-embedding-3-large</strong></th>
+<th><strong>text-embedding-3-large</strong></th>
+<th><strong>text-embedding-3-large</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>嵌入模型大小</td>
+<td>1536</td>
+<td>512</td>
+<td>1536</td>
+<td>256</td>
+<td>1024</td>
+<td>3072</td>
+</tr>
+<tr>
+<td>MTEB 平均得分</td>
+<td>61.0</td>
+<td>61.6</td>
+<td>62.3</td>
+<td>62.0</td>
+<td>64.1</td>
+<td>64.6</td>
+</tr>
+</tbody></table>
+<p>这种灵活性极高的使用方式，使得即便是在只支持最大 1024 维嵌入式表示的向量数据存储条件下，开发者也可以使用我们的最佳嵌入模型 <strong>text-embedding-3-large</strong>，通过将 <strong>dimensions</strong> 参数设置为 1024，从而将嵌入式表示从 3072 维缩短，以较小的向量大小换取一定的准确度。</p>
+<h2 id="其他新模型及更低价格"><a href="#其他新模型及更低价格" class="headerlink" title="其他新模型及更低价格"></a><strong>其他新模型及更低价格</strong></h2><p><strong>更新后的 GPT-3.5 Turbo 模型及降价</strong></p>
+<p>下周，我们将推出新版 GPT-3.5 Turbo 模型 <strong>gpt-3.5-turbo-0125</strong>，这是过去一年内第三次降低 GPT-3.5 Turbo 的价格，旨在帮助客户扩大规模。新模型的输入价格降低了 50%，至每千 Token $0.0005，输出价格降低了 25%，至每千 Token $0.0015。这个模型还将有多项改进，包括更高的请求格式响应准确度，以及修复了之前影响非英语语言函数调用的文本编码问题的 <span class="exturl" data-url="aHR0cHM6Ly9jb21tdW5pdHkub3BlbmFpLmNvbS90L2dwdC00LTExMDYtcHJldmlldy1pcy1ub3QtZ2VuZXJhdGluZy11dGYtOC80ODI4Mzk=">bug<i class="fa fa-external-link-alt"></i></span>。</p>
+<p>使用固定 <strong>gpt-3.5-turbo</strong> 模型别名的客户将在该模型发布两周后自动从 <strong>gpt-3.5-turbo-0613</strong> 升级至 <strong>gpt-3.5-turbo-0125</strong>。</p>
+<p><strong>更新后的 GPT-4 Turbo 预览版</strong></p>
+<p>自 GPT-4 Turbo 发布以来，超过 70% 的 GPT-4 API 客户请求已转移到 GPT-4 Turbo，以便利用其更新的知识截止日期、更大的 128k 上下文窗口和更低价格。</p>
+<p>今天，我们正在发布一个更新后的 GPT-4 Turbo 预览版模型 <strong>gpt-4-0125-preview</strong>。这个模型在执行任务（如代码生成）方面比之前的预览版更为彻底，目的是减少模型未能完成任务的“懒惰”情况。新模型还包含了针对非英语 UTF-8 生成的 bug 修复。</p>
+<p>对于希望自动升级至新版 GPT-4 Turbo 预览版的用户，我们还推出了一个新的模型名称别名 <strong>gpt-4-turbo-preview</strong>，始终指向我们最新的 GPT-4 Turbo 预览版模型。</p>
+<p>我们计划在未来几个月内推出带有视觉功能的 GPT-4 Turbo 的通用可用版本。</p>
+<p><strong>更新后的审核模型</strong></p>
+<p>免费的 Moderation API 使开发者能够识别潜在的有害文本。作为我们持续安全工作的一部分，我们正在发布 <strong>text-moderation-007</strong>，这是我们迄今为止最健全的审核模型。<strong>text-moderation-latest</strong> 和 <strong>text-moderation-stable</strong> 的别名已更新，指向该模型。您可以通过我们的 <span class="exturl" data-url="aHR0cHM6Ly9wbGF0Zm9ybS5vcGVuYWkuY29tL2RvY3MvZ3VpZGVzL3NhZmV0eS1iZXN0LXByYWN0aWNlcw==">安全最佳实践指南<i class="fa fa-external-link-alt"></i></span> 了解更多关于构建安全 AI 系统的信息。</p>
+<h2 id="了解-API-使用情况和管理-API-密钥的新方法"><a href="#了解-API-使用情况和管理-API-密钥的新方法" class="headerlink" title="了解 API 使用情况和管理 API 密钥的新方法"></a><strong>了解 API 使用情况和管理 API 密钥的新方法</strong></h2><p>我们正在推出两项平台改进，以便开发者更好地了解他们的 API 使用情况并更有效地管理 API 密钥。</p>
+<p>首先，开发者现在可以在 <span class="exturl" data-url="aHR0cHM6Ly9wbGF0Zm9ybS5vcGVuYWkuY29tL2FwaS1rZXlz">API 密钥页面<i class="fa fa-external-link-alt"></i></span> 上为 API 密钥分配权限。例如，可以将密钥设置为仅读取权限，用于支持内部跟踪仪表板，或限制其仅访问特定端点。</p>
+<p>其次，通过 <span class="exturl" data-url="aHR0cHM6Ly9wbGF0Zm9ybS5vcGVuYWkuY29tL2FwaS1rZXlz">开启跟踪<i class="fa fa-external-link-alt"></i></span> 后，使用情况仪表板和导出功能现在可以展示基于 API 密钥的使用情况。这使得通过为每个功能、团队、产品或项目分配不同的 API 密钥，轻松查看各个层面的使用情况成为可能。</p>
+<p><img src="/2024-01-29-openai-new-embedding-model/img2.webp"><br>在未来几个月，我们计划进一步改善开发者对 API 使用情况的查看和 API 密钥的管理能力，特别是在大型组织中。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/OpenAI/" rel="tag"><i class="fa fa-tag"></i> OpenAI</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024-01-19-ubuntu-install-mysql.html" rel="prev" title="ubuntu一步到位安装并连接MySQL">
+                  <i class="fa fa-angle-left"></i> ubuntu一步到位安装并连接MySQL
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024-02-18-xiamen-travel.html" rel="next" title="2024春节厦门游记">
+                  2024春节厦门游记 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments disqusjs-container">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><span class="exturl" data-url="aHR0cHM6Ly9iZWlhbi5taWl0Lmdvdi5jbg==">浙ICP备2023031828号 </span>
+  </div>
+  <div class="copyright">
+    &copy; 2019 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">别处理</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">122k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9tdXNlLw==">NexT.Muse</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/disqusjs/3.0.2/styles/disqusjs.css" integrity="sha256-71XarXwNr1Td27HmZI9zjY+rMzRdush6/glo6VFXp7o=" crossorigin="anonymous">
+
+<script class="next-config" data-name="disqusjs" type="application/json">{"enable":true,"api":"https://disqus.com/api/3.0/","apikey":"YJgyNSl14mmANcVTF2n4j8sr3R0eBKsw8R0kcgDzprIJ2ahQ9O4d6H6KX9Bunzt4","shortname":"blog-gd5hg0lukx","count":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/disqusjs/3.0.2/disqusjs.es2015.umd.min.js","integrity":"sha256-okP99ZQKVpIy7+NogAMpGlIQzJa9XKXhIJcFgdju5bU="}}</script>
+<script src="/js/third-party/comments/disqusjs.js"></script>
+
+</body>
+</html>
